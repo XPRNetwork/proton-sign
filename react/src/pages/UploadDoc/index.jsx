@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import { PropTypes } from 'prop-types';
 import PageLayout from '../../components/PageLayout';
-import { AppContext } from '../../components/Provider';
 
 const UploadDoc = ({ onFileUpload }) => {
-  const { accountData } = useContext(AppContext);
   const maxSize = 5000000;
   return (
     <PageLayout
-      avatar={accountData.avatar}
       firstTitleLine="Welcome!"
       secondTitleLine="Let's get your file signed.">
       <Dropzone

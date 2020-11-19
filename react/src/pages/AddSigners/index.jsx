@@ -24,7 +24,7 @@ class AddSignersContainer extends React.Component {
 
   render() {
     const { history } = this.props;
-    const { accountData, actor, docInfo } = this.context;
+    const { actor, docInfo } = this.context;
     const validationSchema = Yup.object().shape({
       signers: Yup.array().of(
         Yup.object().shape({
@@ -36,7 +36,6 @@ class AddSignersContainer extends React.Component {
 
     return (
       <PageLayout
-        avatar={accountData.avatar}
         firstTitleLine="Who needs to sign this"
         secondTitleLine="document?">
         <FileInfo filename={docInfo.filename} filesize={docInfo.filesize} />

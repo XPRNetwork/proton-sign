@@ -56,12 +56,16 @@ a.loginlink
 
 a.nolinkdecoration
   text-decoration: none
+  font-family: Poppins
+  font-size: 14px
 
 .titleline
-  margin-left: 7.5%
-  margin-right: 7.5%
+  margin: 30px 7.5% 30px 7.5%
   font-size: 12px
-  width: 1072px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  min-width: 1050px
 
 .formtitle
   font-family: Poppins
@@ -115,35 +119,40 @@ a.nolinkdecoration
   background: $offwhite
   font-size: 38px
   padding: 25px
-  width: 1022px
-  height: 473px
+  min-width: 1000px
+  min-height: 473px
   text-align: center
   margin-left: 7.5%
   margin-right: 7.5%
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
 
 .contentparent
-  position: relative
-
-.contentchild
-  position: absolute
+  display: flex
+  justify-content: center
+  align-items: center
 
 .imageshape1
   background-image: url("/images/shapes1.png")
   width: 277px
   height: 280px
-  left: 35px
+  margin-right: -11%
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
+  z-index: 1
 
 .imageshape2
   background-image: url("/images/shapes2.png")
   width: 277px
   height: 280px
-  left: 720px
+  margin-left: -11%
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
+  z-index: 1
 
 .contentbox
   border-radius: 25px
@@ -155,9 +164,11 @@ a.nolinkdecoration
   width: 646px
   height: 350px
   left: 168px
+  z-index: 2
+  margin-top: 25px
 
 .afterwords
-  padding-top: 130px
+  padding-top: 2%
 
 .title
   font-family: Poppins
@@ -190,45 +201,27 @@ a.nolinkdecoration
   border: 2px dashed #EEEEEE
 
 .page
+  height: 100%
   width: 100%
-  height: 100vh
-  margin-top: 40px
-  justify-content: center
 
-  .page-wrapper
-    max-width: 1218px
-    @include for-phone-only
-      width: calc(100vw - 60px)
-    @include for-tablet-portrait-up
-      width: calc(100vw - 100px)
-    @include for-tablet-portrait-landscape-up
-      width: calc(100vw - 120px)
+  @include for-phone-only
+    width: calc(100vw - 60px)
+  @include for-tablet-portrait-up
+    width: calc(100vw - 100px)
+  @include for-tablet-portrait-landscape-up
+    width: calc(100vw - 120px)
 
-    .header
-      position: relative
-      z-index: 5
-      margin-top: $top-header-margin
-      justify-content: space-between
+.header
+  position: relative
+  z-index: 5
+  margin-top: $top-header-margin
+  justify-content: space-between
 
-      .header-buttons
-        @include for-phone-only
-          margin-top: 10px
-          cursor: pointer
-        @include for-tablet-portrait-up
-          margin-top: 10px
-          cursor: pointer
-        @include for-tablet-portrait-landscape-up
-          width: 280px
-          justify-content: space-between
-
-        .header-button-item
-          font-family: CircularStd-Bold
-          font-size: 12px
-          color: white
-          letter-spacing: 1px
-          line-height: 16px
-          text-transform: uppercase
-          cursor: pointer
+.header-buttons
+  width: 206px
+  height: 48px
+  margin-top: 0px
+      
 
 .header-avatar
   border-radius: 100%
@@ -237,3 +230,4 @@ a.nolinkdecoration
   background-position: center
   background-size: auto 110%
   background-repeat: no-repeat
+  cursor: pointer

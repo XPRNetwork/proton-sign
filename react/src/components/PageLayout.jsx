@@ -1,68 +1,65 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
+import { AppContext } from './Provider';
 
 const Afterwords = () => (
   <div className="center afterwords">
-    <div>
-      Don't have a Proton wallet? Get one{' '}
-      <a
-        className="lav nolinkdecoration"
-        href="http://www.protonchain.com/"
-        rel="noreferrer"
-        target="_blank">
-        here
-      </a>
-    </div>
+    Don't have a Proton wallet? Get one{' '}
+    <a
+      className="lav nolinkdecoration"
+      href="http://www.protonchain.com/"
+      rel="noreferrer"
+      target="_blank">
+      here
+    </a>
   </div>
 );
 
 const PageLayout = ({
   children,
-  avatar,
   firstTitleLine,
   secondTitleLine,
   hasAfterwords,
-}) => (
-  <div className="page">
-    <div className="page-wrapper">
-      <div>
-        <table className="titleline">
-          <tr>
-            <td>
-              <h1>
-                Proton<font color="#4d5dc1">Sign</font>
-              </h1>
-            </td>
-            <td
-              style={{
-                backgroundImage:
-                  typeof avatar !== 'undefined'
-                    ? `url('data:image/jpeg;base64,${avatar}')`
-                    : `url('./images/default-avatar.png')`,
-              }}
-              alt="avatar"
-              className="header-avatar"></td>
-          </tr>
-        </table>
-        <div className="titlebox">
-          <div className="title">
-            <div>
-              {firstTitleLine}
-              <br />
-              {secondTitleLine}
-            </div>
-          </div>
-          <div className="contentparent">
-            <div className="contentchild imageshape1"></div>
-            <div className="contentchild imageshape2"></div>
-            <div className="contentchild contentbox">{children}</div>
+}) => {
+  const { actor, accountData } = useContext(AppContext);
+  const avatarOrLoginButton = actor ? (
+    <img
+      src={accountData.avatar
+        ? `data:image/jpeg;base64,${accountData.avatar}`
+        : './images/default-avatar.png'}
+      alt="avatar"
+      className="header-avatar"
+    />
+  ) : (
+    <button className="lavbutton header-buttons">Connect Wallet</button>
+  );
+
+  return (
+    <div className="page">
+      <header className="titleline">
+        <h1>
+          Proton<font color="#4d5dc1">Sign</font>
+        </h1>
+        {avatarOrLoginButton}
+      </header>
+      <div className="titlebox">
+        <div className="title">
+          <div>
+            {firstTitleLine}
+            <br />
+            {secondTitleLine}
           </div>
         </div>
-        {hasAfterwords && <Afterwords />}
+        <div className="contentparent">
+          <div className="imageshape1"></div>
+          <div className="contentbox">{children}</div>
+          <div className="imageshape2"></div>
+        </div>
       </div>
+      {hasAfterwords && <Afterwords />}
     </div>
-  </div>
-);
+  );
+};
 
 export default PageLayout;
 
@@ -71,7 +68,6 @@ PageLayout.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  avatar: PropTypes.string,
   firstTitleLine: PropTypes.string.isRequired,
   secondTitleLine: PropTypes.string.isRequired,
   openConfirmModal: PropTypes.func,
@@ -79,7 +75,6 @@ PageLayout.propTypes = {
 };
 
 PageLayout.defaultProps = {
-  avatar: '',
   openConfirmModal: null,
   firstTitleLine: '',
   secondTitleLine: '',
