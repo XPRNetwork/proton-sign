@@ -1,67 +1,87 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
-import '../styles/global.sass';
+import { PropTypes } from 'prop-types';
 
-class PageLayout extends React.Component {
-  constructor(props) {
-    super(props);
+const Afterwords = () => (
+  <div className="center afterwords">
+    <div>
+      Don't have a Proton wallet? Get one{' '}
+      <a
+        className="lav nolinkdecoration"
+        href="http://www.protonchain.com/"
+        rel="noreferrer"
+        target="_blank">
+        here
+      </a>
+    </div>
+  </div>
+);
 
-    this.state = {
-    };
-  }
-
-
-
-  render() {
-    const { children, avatar } = this.props;
-
-    // we display the avatar if user is logged in and it is available
-    return (
-      <div className="page">
-        <div className="page-wrapper">
-          <div>
-            <table class="titleline"><tr>
-              <td><h1>Proton<font color="#4d5dc1">Sign</font></h1></td>
-              <td
-                style={{
-                  backgroundImage:
-                    typeof(avatar) !== "undefined"
-                      ? `url('data:image/jpeg;base64,${avatar}')`
-                      : `url('./images/default-avatar.png')`,
-                }}
-                alt="avatar"
-                className="header-avatar">
-              </td>
-            </tr></table>
-            <div class="titlebox">
-
-                <div class="title">{this.props.title}</div>
-                <div class="contentparent">
-                  <div class="contentchild imageshape1"></div>
-                  <div class="contentchild imageshape2"></div>
-                  <div class="contentchild contentbox">
-                    {children}
-                  </div>
-                </div>
+const PageLayout = ({
+  children,
+  avatar,
+  firstTitleLine,
+  secondTitleLine,
+  hasAfterwords,
+}) => (
+  <div className="page">
+    <div className="page-wrapper">
+      <div>
+        <table className="titleline">
+          <tr>
+            <td>
+              <h1>
+                Proton<font color="#4d5dc1">Sign</font>
+              </h1>
+            </td>
+            <td
+              style={{
+                backgroundImage:
+                  typeof avatar !== 'undefined'
+                    ? `url('data:image/jpeg;base64,${avatar}')`
+                    : `url('./images/default-avatar.png')`,
+              }}
+              alt="avatar"
+              className="header-avatar"></td>
+          </tr>
+        </table>
+        <div className="titlebox">
+          <div className="title">
+            <div>
+              {firstTitleLine}
+              <br />
+              {secondTitleLine}
             </div>
-            <div class="center afterwords">{this.props.afterwords}</div>
+          </div>
+          <div className="contentparent">
+            <div className="contentchild imageshape1"></div>
+            <div className="contentchild imageshape2"></div>
+            <div className="contentchild contentbox">{children}</div>
           </div>
         </div>
+        {hasAfterwords && <Afterwords />}
       </div>
-    );
-  }
-}
+    </div>
+  </div>
+);
 
 export default PageLayout;
-/*
+
 PageLayout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   avatar: PropTypes.string,
+  firstTitleLine: PropTypes.string.isRequired,
+  secondTitleLine: PropTypes.string.isRequired,
   openConfirmModal: PropTypes.func,
-  logout: PropTypes.func.isRequired,
+  hasAfterwords: PropTypes.bool,
 };
 
 PageLayout.defaultProps = {
   avatar: '',
   openConfirmModal: null,
+  firstTitleLine: '',
+  secondTitleLine: '',
+  hasAfterwords: false,
 };
-*/
