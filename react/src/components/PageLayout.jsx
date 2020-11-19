@@ -21,7 +21,7 @@ const PageLayout = ({
   secondTitleLine,
   hasAfterwords,
 }) => {
-  const { actor, accountData } = useContext(AppContext);
+  const { actor, accountData, logout } = useContext(AppContext);
   const avatarOrLoginButton = actor ? (
     <img
       src={accountData.avatar
@@ -29,6 +29,7 @@ const PageLayout = ({
         : './images/default-avatar.png'}
       alt="avatar"
       className="header-avatar"
+      onClick={logout}
     />
   ) : (
     <button className="lavbutton header-buttons">Connect Wallet</button>
