@@ -3,8 +3,8 @@ import { PropTypes } from 'prop-types';
 import { AppContext } from './Provider';
 
 const Afterwords = () => (
-  <div className="center afterwords">
-    Don't have a Proton wallet? Get one{' '}
+  <div className="afterwords">
+    Don't have a Proton wallet? Get one&nbsp;
     <a
       className="lav nolinkdecoration"
       href="http://www.protonchain.com/"
