@@ -1,6 +1,5 @@
-export { default as HomeContainer } from './Home/HomeContainer';
-export { default as SignContainer } from './Sign/SignContainer';
-export { default as SignatureCompletedContainer } from './SignatureCompleted/SignatureCompletedContainer';
-export { default as AddSignersContainer } from './AddSigners/AddSignersContainer';
-export { default as UploadDocContainer } from './UploadDoc/UploadDocContainer';
-export { default as SignersNotifiedContainer } from './SignersNotified/SignersNotifiedContainer';
+export { default as HomeContainer } from './Home/Container';
+export { default as SignContainer } from './Sign/Container';
+export { default as SuccessNotification } from './Success';
+export { default as AddSignersContainer } from './AddSigners';
+export { default as UploadDocContainer } from './UploadDoc/Container';
