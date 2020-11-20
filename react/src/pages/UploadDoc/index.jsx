@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Dropzone from 'react-dropzone';
 import { PropTypes } from 'prop-types';
 import PageLayout from '../../components/PageLayout';
+import { AppContext } from '../../components/Provider';
 
 const UploadDoc = ({ onFileUpload }) => {
+  const { accountData } = useContext(AppContext);
+  const firstName = accountData.name.split(' ')[0];
   const maxSize = 5000000;
+  
   return (
     <PageLayout
-      firstTitleLine="Welcome!"
+      firstTitleLine={`Welcome ${firstName}!`}
       secondTitleLine="Let's get your file signed.">
       <Dropzone
         onDrop={onFileUpload}
@@ -16,8 +20,7 @@ const UploadDoc = ({ onFileUpload }) => {
         maxSize={maxSize}>
         {({ getRootProps, getInputProps, isDragReject }) => {
           return (
-            <div className="dashed upload uploadbox">
-              <div {...getRootProps()}>
+            <div className="dashed upload uploadbox" {...getRootProps()}>
                 <input {...getInputProps()} />
                 {isDragReject && 'Only PDF files are accepted, sorry!'}
 
@@ -34,7 +37,6 @@ const UploadDoc = ({ onFileUpload }) => {
                     <label className="upload grey">Supports: PDF files</label>
                   </li>
                 </ul>
-              </div>
             </div>
           );
         }}
