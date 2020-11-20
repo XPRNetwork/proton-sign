@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://35.236.54.120/",
   "dependencies": {
-    "@protonprotocol/proton-web-sdk": "2.6.0",
+    "@protonprotocol/proton-web-sdk": "^2.6.0",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
