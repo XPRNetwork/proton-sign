@@ -9,6 +9,7 @@ export const AppContext = createContext({
   docInfo: {},
   setLoggedInState: () => {},
   setDocInfo: () => {},
+  login: () => {},
   logout: () => {},
 });
 
@@ -68,6 +69,18 @@ class Provider extends React.Component {
     }
   };
 
+  login = async () => {
+    try {
+      this.setState({ isLoggingIn: true });
+      const { auth, accountData } = await ProtonSDK.login();
+      this.setLoggedInState(auth.actor, auth.permission, accountData);
+      this.setState({ isLoggingIn: false });
+    } catch (e) {
+      this.setState({ isLoggingIn: false });
+      console.error(e);
+    }
+  };
+
   logout = async () => {
     const { accountData } = this.state;
     const { history } = this.props;
@@ -85,6 +98,7 @@ class Provider extends React.Component {
       setLoggedInState: this.setLoggedInState,
       setDocInfo: this.setDocInfo,
       logout: this.logout,
+      login: this.login
     };
 
     return (

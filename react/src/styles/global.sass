@@ -50,9 +50,10 @@ input
   padding: 10px
   width: 90%
 
-a.loginlink
+.loginlink
   text-decoration: none
   color: $black
+  cursor: pointer
 
 a.nolinkdecoration
   text-decoration: none
@@ -60,12 +61,12 @@ a.nolinkdecoration
   font-size: 14px
 
 .titleline
-  margin: 30px 5% 30px 5%
   font-size: 12px
+  margin: 30px 0px
   display: flex
   align-items: center
   justify-content: space-between
-  min-width: 1050px
+  width: 1000px
 
 .formtitle
   font-family: Poppins
@@ -119,7 +120,7 @@ a.nolinkdecoration
   background: $offwhite
   font-size: 38px
   padding: 25px
-  min-width: 1000px
+  width: 1000px
   min-height: 473px
   text-align: center
   margin-left: 5%
@@ -168,8 +169,8 @@ a.nolinkdecoration
   margin-top: 25px
 
 .afterwords
-  padding-top: 20px 
-  min-width: 1060px
+  margin: 40px 0px
+  width: 1000px
   display: flex
   justify-content: center
   margin-left: 5%
@@ -208,6 +209,9 @@ a.nolinkdecoration
 .page
   height: 100%
   width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
 
   @include for-phone-only
     width: calc(100vw - 60px)
@@ -226,7 +230,8 @@ a.nolinkdecoration
   width: 206px
   height: 48px
   margin-top: 0px
-      
+  cursor: pointer
+  outline: none
 
 .header-avatar
   border-radius: 100%

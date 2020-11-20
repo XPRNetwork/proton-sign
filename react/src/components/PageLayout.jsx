@@ -7,7 +7,7 @@ const Afterwords = () => (
     Don't have a Proton wallet? Get one&nbsp;
     <a
       className="lav nolinkdecoration"
-      href="http://www.protonchain.com/"
+      href="https://www.protonchain.com/wallet"
       rel="noreferrer"
       target="_blank">
       here
@@ -19,9 +19,20 @@ const PageLayout = ({
   children,
   firstTitleLine,
   secondTitleLine,
-  hasAfterwords,
+  isHomePage,
 }) => {
-  const { actor, accountData, logout } = useContext(AppContext);
+  const { actor, accountData, login, logout } = useContext(AppContext);
+
+  const firstLine = !isHomePage
+    ? firstTitleLine : (
+      <>
+        <span className="lav">
+          Free document signing
+        </span>
+        <span> on the</span>
+      </>
+    );
+
   const avatarOrLoginButton = actor ? (
     <img
       src={accountData.avatar
@@ -32,21 +43,21 @@ const PageLayout = ({
       onClick={logout}
     />
   ) : (
-    <button className="lavbutton header-buttons">Connect Wallet</button>
+    <button className="lavbutton header-buttons" onClick={login}>Connect Wallet</button>
   );
 
   return (
     <div className="page">
       <header className="titleline">
         <h1>
-          Proton<font color="#4d5dc1">Sign</font>
+          Proton<span className="lav">Sign</span>
         </h1>
         {avatarOrLoginButton}
       </header>
       <div className="titlebox">
         <div className="title">
           <div>
-            {firstTitleLine}
+            {firstLine}
             <br />
             {secondTitleLine}
           </div>
@@ -57,7 +68,7 @@ const PageLayout = ({
           <div className="imageshape2"></div>
         </div>
       </div>
-      {hasAfterwords && <Afterwords />}
+      {isHomePage && <Afterwords />}
     </div>
   );
 };

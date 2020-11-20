@@ -124,21 +124,8 @@ class SignContainer extends React.Component {
     }
   };
 
-  generateLoginRequest = async () => {
-    const { setLoggedInState } = this.context;
-    try {
-      this.setState({ isLoggingIn: true });
-      const { auth, accountData } = await ProtonSDK.login();
-      setLoggedInState(auth.actor, auth.permission, accountData);
-      this.setState({ isLoggingIn: false });
-    } catch (e) {
-      this.setState({ isLoggingIn: false });
-      console.error(e);
-    }
-  };
-
   render() {
-    const { accountData } = this.context;
+    const { accountData, login } = this.context;
     const { docInfo, downloadlink } = this.state;
     const { hash, filename, filesize, signer_name } = docInfo;
     const isLoggedIn = accountData && accountData.hasOwnProperty('name');
@@ -165,7 +152,7 @@ class SignContainer extends React.Component {
         <button
           className="lavbutton"
           type="button"
-          onClick={isLoggedIn ? this.signDocument : this.generateLoginRequest}>
+          onClick={isLoggedIn ? this.signDocument : login}>
           {isLoggedIn ? 'Sign document' : 'Connect Wallet'}
         </button>
       </PageLayout>
