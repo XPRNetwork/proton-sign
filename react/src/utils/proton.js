@@ -1,12 +1,11 @@
-import { ConnectWallet } from '@protonprotocol/proton-web-sdk'
-import Logo from '../logo.svg'
+import { ConnectWallet } from '@protonprotocol/proton-web-sdk';
+import Logo from '../logo.svg';
 
 class ProtonSDK {
   constructor() {
     this.chainId = process.env.REACT_APP_CHAIN_ID;
-    this.endpoints = [process.env.REACT_APP_CHAIN_ENDPOINT]; // Multiple for fault tolerance
+    this.endpoints = [process.env.REACT_APP_CHAIN_ENDPOINT];
     this.appName = 'ProtonSign';
-    this.requestAccount = 'adrianscott'; // optional
     this.session = null;
     this.link = null;
   }
@@ -15,8 +14,11 @@ class ProtonSDK {
     try {
       this.link = await ConnectWallet({
         linkOptions: { chainId: this.chainId, endpoints: this.endpoints },
-        transportOptions: { requestAccount: this.requestAccount, backButton: true },
-        selectorOptions: { appName: this.appName,appLogo: Logo}
+        transportOptions: {
+          requestAccount: this.requestAccount,
+          backButton: true,
+        },
+        selectorOptions: { appName: this.appName, appLogo: Logo },
       });
       const { session } = await this.link.login(this.requestAccount);
 
@@ -50,16 +52,29 @@ class ProtonSDK {
     if (savedUserAuth) {
       try {
         this.link = await ConnectWallet({
-          linkOptions: { chainId: this.chainId, endpoints: this.endpoints},
-          transportOptions: { requestAccount: this.requestAccount, backButton: true },
-          selectorOptions: { appName: this.appName, appLogo: Logo, showSelector: false}
+          linkOptions: { chainId: this.chainId, endpoints: this.endpoints },
+          transportOptions: {
+            requestAccount: this.requestAccount,
+            backButton: true,
+          },
+          selectorOptions: {
+            appName: this.appName,
+            appLogo: Logo,
+            showSelector: false,
+          },
         });
-        const result = await this.link.restoreSession(this.requestAccount, savedUserAuth);
+        const result = await this.link.restoreSession(
+          this.requestAccount,
+          savedUserAuth
+        );
         if (result) {
           this.session = result;
-          return { auth: this.session.auth, accountData: this.session.accountData[0] };
+          return {
+            auth: this.session.auth,
+            accountData: this.session.accountData[0],
+          };
         }
-      } catch(e) {
+      } catch (e) {
         return e;
       }
     }
