@@ -6,12 +6,12 @@ import { AppContext } from '../../components/Provider';
 
 const UploadDoc = ({ onFileUpload }) => {
   const { accountData } = useContext(AppContext);
-  const firstName = accountData.name.split(' ')[0];
+  const firstName = accountData.name ? ' ' + accountData.name.split(' ')[0] : '';
   const maxSize = 5000000;
   
   return (
     <PageLayout
-      firstTitleLine={`Welcome ${firstName}!`}
+      firstTitleLine={`Welcome${firstName}!`}
       secondTitleLine="Let's get your file signed.">
       <Dropzone
         onDrop={onFileUpload}

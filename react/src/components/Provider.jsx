@@ -54,26 +54,15 @@ class Provider extends React.Component {
   };
 
   setLoggedInState = async (actor, permission, accountData) => {
-    const { history } = this.props;
     this.setState({ actor, permission, accountData });
-
-    if (window.location.search.includes('doc')) {
-      history.push({
-        pathname: '/sign',
-        search: window.location.search,
-      });
-    } else {
-      history.push({
-        pathname: '/uploaddoc',
-        search: window.location.search,
-      });
-    }
   };
 
   login = async () => {
     try {
       const { auth, accountData } = await ProtonSDK.login();
-      this.setLoggedInState(auth.actor, auth.permission, accountData);
+      if (auth && auth.actor && auth.permission) {
+        this.setLoggedInState(auth.actor, auth.permission, accountData);
+      }
     } catch (e) {
       console.error(e);
     }

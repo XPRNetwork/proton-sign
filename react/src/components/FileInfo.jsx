@@ -37,10 +37,10 @@ FileInfo.propTypes = {
     PropTypes.node
   ]),
   filename: PropTypes.string.isRequired,
-  filesize: PropTypes.number.isRequired,
+  filesize: PropTypes.string.isRequired,
 };
 
 FileInfo.defaultProps = {
   filename: '',
-  filesize: 0,
+  filesize: '',
 };

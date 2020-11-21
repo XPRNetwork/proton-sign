@@ -38,7 +38,7 @@ const App = () => (
       />
       <Route path="/addsigners" component={AddSignersContainer} />
       <Route path="/uploaddoc" component={UploadDocContainer} />
-      <Route path="/" component={HomeContainer} />
+      <Route exact path="/" component={HomeContainer} />
     </Switch>
   </Provider>
 );
