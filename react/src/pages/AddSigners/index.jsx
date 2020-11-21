@@ -69,7 +69,11 @@ const AddSignersContainer = ({ history }) => {
     <PageLayout
       firstTitleLine="Who needs to sign this"
       secondTitleLine="document?">
-      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize} />
+      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize}>
+        <td className="right x-icon" onClick={() => history.push('/')}>
+          <img src="./images/x.png" alt="x-icon" />
+        </td>
+      </FileInfo>
       <Formik
         initialValues={{ signers: [{ name: '', email: '' }] }}
         validationSchema={validationSchema}

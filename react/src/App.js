@@ -4,7 +4,6 @@ import Provider from './components/Provider';
 import {
   HomeContainer,
   AddSignersContainer,
-  UploadDocContainer,
   SignContainer,
   SuccessNotification,
 } from './pages';
@@ -37,8 +36,7 @@ const App = () => (
         )}
       />
       <Route path="/addsigners" component={AddSignersContainer} />
-      <Route path="/uploaddoc" component={UploadDocContainer} />
-      <Route exact path="/" component={HomeContainer} />
+      <Route path="/" component={HomeContainer} />
     </Switch>
   </Provider>
 );
