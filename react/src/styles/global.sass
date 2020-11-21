@@ -158,6 +158,13 @@ a.nolinkdecoration
     padding-top: 0px
     font-size: 32px
 
+  @include for-phone-only
+    width: 100%
+  @include for-tablet-portrait-up
+    width: 100%
+  @include for-tablet-portrait-landscape-up
+    width: 100%
+
 .contentparent
   display: flex
   justify-content: center
@@ -229,6 +236,13 @@ a.nolinkdecoration
 
   @media (max-width: 320px)
     width: 240px
+
+  @include for-phone-only
+    width: 35%
+  @include for-tablet-portrait-up
+    width: 35%
+  @include for-tablet-portrait-landscape-up
+    width: 35%
 
 .afterwords
   margin: 40px 0px
