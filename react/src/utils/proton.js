@@ -3,8 +3,8 @@ import Logo from '../logo.svg';
 
 class ProtonSDK {
   constructor() {
-    this.chainId = process.env.REACT_APP_CHAIN_ID;
-    this.endpoints = [process.env.REACT_APP_CHAIN_ENDPOINT];
+    this.chainId = '384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0';
+    this.endpoints = ['https://proton.greymass.com'];
     this.appName = 'ProtonSign';
     this.requestAccount = 'protonsign';
     this.session = null;
@@ -42,7 +42,6 @@ class ProtonSDK {
     try {
       await this.connect();
       const { auth, accountData } = this.session;
-      localStorage.setItem('savedUserAuth-sign', JSON.stringify(auth));
       return {
         auth,
         accountData: accountData[0]
@@ -66,26 +65,20 @@ class ProtonSDK {
 
   logout = async () => {
     await this.link.removeSession(this.requestAccount, this.session.auth);
-    localStorage.removeItem('savedUserAuth-sign');
   };
 
   restoreSession = async () => {
-    const savedUserAuth = JSON.parse(
-      localStorage.getItem('savedUserAuth-sign')
-    );
-    if (savedUserAuth) {
-      try {
-        await this.connect({ restoreSession: true, showSelector: false });
-        if (this.session) {
-          const { auth, accountData } = this.session;
-          return {
-            auth,
-            accountData: accountData[0],
-          };
-        }
-      } catch (e) {
-        return e;
+    try {
+      await this.connect({ restoreSession: true, showSelector: false });
+      if (this.session) {
+        const { auth, accountData } = this.session;
+        return {
+          auth,
+          accountData: accountData[0],
+        };
       }
+    } catch (e) {
+      return e;
     }
     return {
       auth: {
