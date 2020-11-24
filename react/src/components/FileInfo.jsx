@@ -12,16 +12,18 @@ const FileInfo = ({ children, filename, filesize }) => {
   return (
     <div>
       <table className="filebox">
-        <tr>
-          <td className="filepng">
-            <img src="./images/file.png" alt="PDF File" />
-          </td>
-          <td>
-            <label>{filenameRoot}</label>
-            <div className="grey">{roundedFilesize}</div>
-          </td>
-          {children}
-        </tr>
+        <tbody>
+          <tr>
+            <td className="filepng">
+              <img src="./images/file.png" alt="PDF File" />
+            </td>
+            <td>
+              <label>{filenameRoot}</label>
+              <div className="grey">{roundedFilesize}</div>
+            </td>
+            {children}
+          </tr>
+        </tbody>
       </table>
     </div>
   );
@@ -35,10 +37,10 @@ FileInfo.propTypes = {
     PropTypes.node
   ]),
   filename: PropTypes.string.isRequired,
-  filesize: PropTypes.number.isRequired,
+  filesize: PropTypes.string.isRequired,
 };
 
 FileInfo.defaultProps = {
   filename: '',
-  filesize: 0,
+  filesize: '',
 };

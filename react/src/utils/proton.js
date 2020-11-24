@@ -3,28 +3,49 @@ import Logo from '../logo.svg';
 
 class ProtonSDK {
   constructor() {
-    this.chainId = process.env.REACT_APP_CHAIN_ID;
-    this.endpoints = [process.env.REACT_APP_CHAIN_ENDPOINT];
+    this.chainId = '384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0';
+    this.endpoints = ['https://proton.greymass.com'];
     this.appName = 'ProtonSign';
+    this.requestAccount = 'protonsign';
     this.session = null;
     this.link = null;
   }
 
+  connect = async (options) => {
+    const walletOptions = {
+      restoreSession: false,
+      showSelector: true,
+      ...options
+    };
+
+    const { link, session } = await ConnectWallet({
+      linkOptions: {
+        chainId: this.chainId,
+        endpoints: this.endpoints,
+        restoreSession: walletOptions.restoreSession,
+      },
+      transportOptions: {
+        requestAccount: this.requestAccount,
+        backButton: true,
+      },
+      selectorOptions: {
+        appName: this.appName,
+        appLogo: Logo,
+        showSelector: walletOptions.showSelector,
+      },
+    });
+    this.link = link;
+    this.session = session;
+  };
+
   login = async () => {
     try {
-      this.link = await ConnectWallet({
-        linkOptions: { chainId: this.chainId, endpoints: this.endpoints },
-        transportOptions: {
-          requestAccount: this.requestAccount,
-          backButton: true,
-        },
-        selectorOptions: { appName: this.appName, appLogo: Logo },
-      });
-      const { session } = await this.link.login(this.requestAccount);
-
-      this.session = session;
-      localStorage.setItem('savedUserAuth', JSON.stringify(session.auth));
-      return { auth: session.auth, accountData: session.accountData[0] };
+      await this.connect();
+      const { auth, accountData } = this.session;
+      return {
+        auth,
+        accountData: accountData[0]
+      };
     } catch (e) {
       return e;
     }
@@ -44,43 +65,29 @@ class ProtonSDK {
 
   logout = async () => {
     await this.link.removeSession(this.requestAccount, this.session.auth);
-    localStorage.removeItem('savedUserAuth');
   };
 
   restoreSession = async () => {
-    const savedUserAuth = JSON.parse(localStorage.getItem('savedUserAuth'));
-    if (savedUserAuth) {
-      try {
-        this.link = await ConnectWallet({
-          linkOptions: { chainId: this.chainId, endpoints: this.endpoints },
-          transportOptions: {
-            requestAccount: this.requestAccount,
-            backButton: true,
-          },
-          selectorOptions: {
-            appName: this.appName,
-            appLogo: Logo,
-            showSelector: false,
-          },
-        });
-        const result = await this.link.restoreSession(
-          this.requestAccount,
-          savedUserAuth
-        );
-        if (result) {
-          this.session = result;
-          return {
-            auth: this.session.auth,
-            accountData: this.session.accountData[0],
-          };
-        }
-      } catch (e) {
-        return e;
+    try {
+      await this.connect({ restoreSession: true, showSelector: false });
+      if (this.session) {
+        const { auth, accountData } = this.session;
+        return {
+          auth,
+          accountData: accountData[0],
+        };
       }
+    } catch (e) {
+      return e;
     }
-    return { auth: { actor: '', permission: '' }, accountData: {} };
+    return {
+      auth: {
+        actor: '',
+        permission: ''
+      },
+      accountData: {}
+    };
   };
 }
 
-const protonSDK = new ProtonSDK();
-export default protonSDK;
+export default  new ProtonSDK();
