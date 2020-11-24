@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import ProtonSDK from '../utils/proton';
 
 export const AppContext = createContext({
@@ -33,7 +34,7 @@ class Provider extends React.Component {
     const { auth, accountData } = await ProtonSDK.restoreSession();
     const { history } = this.props;
 
-    if (auth.actor && auth.permission) {
+    if (auth && auth.actor && auth.permission) {
       this.setLoggedInState(auth.actor, auth.permission, accountData);
     } else {
       if (
@@ -53,30 +54,16 @@ class Provider extends React.Component {
   };
 
   setLoggedInState = async (actor, permission, accountData) => {
-    const { history } = this.props;
     this.setState({ actor, permission, accountData });
-
-    if (window.location.search.includes('doc')) {
-      history.push({
-        pathname: '/sign',
-        search: window.location.search,
-      });
-    } else {
-      history.push({
-        pathname: '/uploaddoc',
-        search: window.location.search,
-      });
-    }
   };
 
   login = async () => {
     try {
-      this.setState({ isLoggingIn: true });
       const { auth, accountData } = await ProtonSDK.login();
-      this.setLoggedInState(auth.actor, auth.permission, accountData);
-      this.setState({ isLoggingIn: false });
+      if (auth && auth.actor && auth.permission) {
+        this.setLoggedInState(auth.actor, auth.permission, accountData);
+      }
     } catch (e) {
-      this.setState({ isLoggingIn: false });
       console.error(e);
     }
   };
@@ -109,4 +96,4 @@ class Provider extends React.Component {
   }
 }
 
-export default Provider;
+export default withRouter(Provider);

@@ -127,8 +127,9 @@ class SignContainer extends React.Component {
   render() {
     const { accountData, login } = this.context;
     const { docInfo, downloadlink } = this.state;
-    const { hash, filename, filesize, signer_name } = docInfo;
+    const { hash, filename, filesize } = docInfo;
     const isLoggedIn = accountData && accountData.hasOwnProperty('name');
+    const signer = isLoggedIn ? `I, ${accountData.name},` : `I`;
 
     return (
       <PageLayout firstTitleLine="Please Sign Document">
@@ -145,7 +146,8 @@ class SignContainer extends React.Component {
         </FileInfo>
 
         <p className="grey">
-          I, {signer_name}, sign the following file on the Proton Blockchain and
+          {signer} agree to sign the following file on the Proton Blockchain and
+          <br />
           understand that this action can't be undone.
         </p>
 

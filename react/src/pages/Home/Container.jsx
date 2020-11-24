@@ -1,7 +1,11 @@
 import React from 'react';
 import Home from '.';
+import { AppContext } from '../../components/Provider';
+import UploadDocContainer from '../UploadDoc/Container';
 
 class HomeContainer extends React.Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +25,12 @@ class HomeContainer extends React.Component {
 
   render() {
     const { windowWidth, isLoggingIn } = this.state;
+
+    if (this.context.actor) {
+      return (
+        <UploadDocContainer />
+      );
+    }
 
     return (
       <Home

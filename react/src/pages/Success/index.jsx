@@ -12,9 +12,7 @@ const Success = ({
     firstTitleLine={firstTitleLine}
     secondTitleLine={secondTitleLine}>
     <div className="uploadbox center">
-      <div>
-        <img src="./images/check.png" alt="Success!" />
-      </div>
+      <img src="./images/check.png" alt="Success!" className="success" />
       <p>Success!!</p>
       <label className="grey">
         {firstLabelLine}

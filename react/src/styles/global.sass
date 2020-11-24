@@ -44,7 +44,7 @@ table
 
 input
   border-radius: 10px
-  border: 1px solid #EEEEEE
+  border: 1px solid #eceef8
   height: 20px
   font-size: 16px
   padding: 10px
@@ -86,6 +86,7 @@ a.nolinkdecoration
   height: 48px
   width: 100%
   margin-top: 25px
+  cursor: pointer
 
 .checksumbox
   border-radius: 10px
@@ -97,7 +98,7 @@ a.nolinkdecoration
 
 .filebox
   border-radius: 10px
-  border: 1px solid #EEEEEE
+  border: 1px solid #eceef8
   padding: 15px
   margin-bottom: 25px
   width: 100%
@@ -105,15 +106,24 @@ a.nolinkdecoration
 .filepng
   width: 45px
 
+  img
+    height: 45px
+
 .lav
   color: $lavender1
 
 .upload
   background: $upload
+  cursor: pointer
 
 .uploadbox
   height: 210px
   padding: 70px
+  outline: 0
+
+.success
+  width: 80px
+  height: 80px
 
 .titlebox
   border-radius: 25px
@@ -121,10 +131,10 @@ a.nolinkdecoration
   font-size: 38px
   padding: 25px
   width: 1022px
-  min-height: 473px
+  height: auto
+  min-height: 528px
   text-align: center
-  margin-left: 5%
-  margin-right: 5%
+  margin: 0% 5%
   display: flex
   flex-direction: column
   justify-content: flex-start
@@ -134,12 +144,15 @@ a.nolinkdecoration
   display: flex
   justify-content: center
   align-items: center
+  position: absolute
+  top: 350px
 
 .imageshape1
   background-image: url("/images/shapes1.png")
   width: 277px
   height: 280px
-  margin-right: -11%
+  position: absolute
+  right: 570px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
@@ -149,7 +162,8 @@ a.nolinkdecoration
   background-image: url("/images/shapes2.png")
   width: 277px
   height: 280px
-  margin-left: -11%
+  position: absolute
+  left: 570px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
@@ -157,16 +171,15 @@ a.nolinkdecoration
 
 .contentbox
   border-radius: 25px
-  border: 2px solid #EEEEEE
+  border: 1px solid #eceef8
   background: $white1
   font-size: 18px
   text-align: left
   padding: 30px
   width: 646px
-  height: 350px
+  min-height: 350px
   left: 168px
   z-index: 2
-  margin-top: 25px
 
 .afterwords
   margin: 40px 0px
@@ -192,6 +205,47 @@ a.nolinkdecoration
 .right
   text-align: right
 
+.add-signer-container
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+
+.add-signer
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: flex-end
+  cursor: pointer
+  background: none
+  border: none
+  outline: none
+
+  img
+    margin-right: 10px
+
+.x-icon
+  border: none
+  outline: none
+  background: none
+  cursor: pointer
+  width: 20px
+  height: 20px
+
+  img
+    width: 20px
+    height: 20px
+
+.signer-form-input
+  margin: 5px 0px
+
+.signer-form-error
+  color: red
+  margin: -5px 0px
+  height: 10px
+  font-size: 12px
+  text-align: center
+  font-face: Poppins-Bold
+
 .halfwidth
   width: 50%
   display: inline-block
@@ -199,12 +253,15 @@ a.nolinkdecoration
 .fullwidth
   width: 100%
 
+  input:first-of-type
+    margin-right: 302px
+
 .little
   font-size: 12px
 
 .dashed
   border-radius: 25px
-  border: 2px dashed #EEEEEE
+  border: 1px dashed #eceef8
 
 .page
   height: 100%
