@@ -158,11 +158,7 @@ a.nolinkdecoration
     padding-top: 0px
     font-size: 32px
 
-  @include for-phone-only
-    width: 100%
-  @include for-tablet-portrait-up
-    width: 100%
-  @include for-tablet-portrait-landscape-up
+  @media (max-width: 920px)
     width: 100%
 
 .contentparent
@@ -190,6 +186,12 @@ a.nolinkdecoration
 .mobileonly div
 
 
+  @media (max-width: 920px)
+    width: 100%
+
+  @media (max-width: 320px)
+    top: 550px
+
 .imageshape1
   background-image: url("/images/shapes1.png")
   min-width: 277px
@@ -215,6 +217,11 @@ a.nolinkdecoration
   background-position: bottom
   z-index: 1
 
+  @media (max-width: 920px)
+    position: relative
+    left: -125px;
+    padding-bottom: 0px
+
 .contentbox
   border-radius: 25px
   border: 1px solid #eceef8
@@ -236,13 +243,6 @@ a.nolinkdecoration
 
   @media (max-width: 320px)
     width: 240px
-
-  @include for-phone-only
-    width: 35%
-  @include for-tablet-portrait-up
-    width: 35%
-  @include for-tablet-portrait-landscape-up
-    width: 35%
 
 .afterwords
   margin: 40px 0px
