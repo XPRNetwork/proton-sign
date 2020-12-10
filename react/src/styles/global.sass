@@ -68,13 +68,7 @@ a.nolinkdecoration
   justify-content: space-between
   width: 1022px
 
-  @include for-phone-only
-    width: 100%
-    justify-content: space-around
-  @include for-tablet-portrait-up
-    width: 100%
-    justify-content: space-around
-  @include for-tablet-portrait-landscape-up
+  @media (max-width: 920px)
     width: 100%
     justify-content: space-around
 
@@ -130,6 +124,10 @@ a.nolinkdecoration
   height: 210px
   padding: 70px
   outline: 0
+  
+  @media (max-width: 920px)
+    min-width: 150px;
+    padding: 30px
 
 .success
   width: 80px
@@ -150,11 +148,7 @@ a.nolinkdecoration
   justify-content: flex-start
   align-items: center
 
-  @include for-phone-only
-    width: 100%
-  @include for-tablet-portrait-up
-    width: 100%
-  @include for-tablet-portrait-landscape-up
+  @media (max-width: 920px)
     width: 100%
 
 .contentparent
@@ -164,9 +158,15 @@ a.nolinkdecoration
   position: absolute
   top: 350px
 
+  @media (max-width: 920px)
+    width: 100%
+
+  @media (max-width: 320px)
+    top: 550px
+
 .imageshape1
   background-image: url("/images/shapes1.png")
-  width: 277px
+  min-width: 277px
   height: 280px
   position: absolute
   right: 570px
@@ -175,9 +175,15 @@ a.nolinkdecoration
   background-position: bottom
   z-index: 1
 
+  @media (max-width: 920px)
+    position: relative
+    left: 125px;
+    right: 0px;
+    padding-bottom: 0px
+
 .imageshape2
   background-image: url("/images/shapes2.png")
-  width: 277px
+  min-width: 277px
   height: 280px
   position: absolute
   left: 570px
@@ -185,6 +191,11 @@ a.nolinkdecoration
   background-repeat: no-repeat
   background-position: bottom
   z-index: 1
+
+  @media (max-width: 920px)
+    position: relative
+    left: -125px;
+    padding-bottom: 0px
 
 .contentbox
   border-radius: 25px
@@ -198,13 +209,6 @@ a.nolinkdecoration
   left: 168px
   z-index: 2
 
-  @include for-phone-only
-    width: 35%
-  @include for-tablet-portrait-up
-    width: 35%
-  @include for-tablet-portrait-landscape-up
-    width: 35%
-
 .afterwords
   margin: 40px 0px
   width: 1022px
@@ -212,6 +216,10 @@ a.nolinkdecoration
   justify-content: center
   margin-left: 5%
   margin-right: 5%
+  padding-top: 50px
+
+  @media (max-width: 320px)
+    padding-top: 250px
 
 .title
   font-family: Poppins
