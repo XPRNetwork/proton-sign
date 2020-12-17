@@ -25,10 +25,10 @@ class HomeContainer extends React.Component {
 
   render() {
     const { windowWidth, isLoggingIn } = this.state;
-
+    const { history } = this.props;
     if (this.context.actor) {
       return (
-        <UploadDocContainer />
+        <UploadDocContainer history={history} />
       );
     }
 
