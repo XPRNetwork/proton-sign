@@ -58,14 +58,15 @@ const AddSignersContainer = ({ history }) => {
       axios
         .post('/psignapi/addsigners.php', formData)
         .then((res) => {
-          const isValidResponse = typeof res === 'object' && res !== null && 'data' in res;
+          const isValidResponse =
+            typeof res === 'object' && res !== null && 'data' in res;
 
           if (isValidResponse) {
             const data = res.data;
             const isObject = typeof data === 'object' && data !== null;
             const isError = isObject && 'error' in data;
             const isResult = isObject && 'result' in res.data;
-            
+
             if (isError) {
               console.warn('error: ' + data['error']);
               alert('error: ' + data['error']);
@@ -84,17 +85,17 @@ const AddSignersContainer = ({ history }) => {
         .catch((err) => console.error(err));
       setIsSubmitting(false);
     }, 400);
-  }
+  };
 
   return (
     <PageLayout
       firstTitleLine="Who needs to sign this"
       secondTitleLine="document?">
-      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize.toString()}>
+      {/* <FileInfo filename={docInfo.filename} filesize={docInfo.filesize.toString()}>
         <td className="right x-icon" onClick={() => history.push('/')}>
           <img src="./images/x.png" alt="x-icon" />
         </td>
-      </FileInfo>
+      </FileInfo> */}
       <Formik
         initialValues={{ signers: [{ name: '', email: '' }] }}
         validationSchema={validationSchema}>
@@ -118,10 +119,10 @@ const AddSignersContainer = ({ history }) => {
                     <tbody>
                       <tr>
                         <td>
-                          <label>Name</label>
+                          <label className="bold">Name</label>
                         </td>
                         <td className="halfwidth">
-                          <label>Email</label>
+                          <label className="bold">Email</label>
                         </td>
                       </tr>
                     </tbody>
@@ -158,79 +159,43 @@ const AddSignersContainer = ({ history }) => {
                     ))}
                   </table>
 
-                  {/* Fix the mobile version JOE */}
-                  <table className="mobileonly fullwidth">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <label>Name</label>
-                        </td>
-                      </tr>
-                    </tbody>
+                  <div className="mobileonly">
+                    <label className="bold">Name</label>
                     {values.signers.map((_, index) => (
-                      <tbody key={index}>
-                        <tr>
-                          <td>
-                            <Field
-                              name={`signers.${index}.name`}
-                              placeholder="John Doe"
-                              className="signer-form-input"
-                            />{' '}
-                            <ErrorMessage
-                              name={`signers.${index}.name`}
-                              component="div"
-                              className="signer-form-error"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>))}
-
-                      <tbody>
-                      <tr>
-                        
-                        <td className="halfwidth">
-                          <label>Email</label>
-                        </td>
-                        {/* <RemoveSignerButton
+                      <div key={index}>
+                        <Field
+                          name={`signers.${index}.name`}
+                          placeholder="John Doe"
+                          className="signer-form-input"
+                        />{' '}
+                        <ErrorMessage
+                          name={`signers.${index}.name`}
+                          component="div"
+                          className="signer-form-error"
+                        />
+                      </div>
+                    ))}
+                    <label className="bold">Email</label>
+                    {values.signers.map((_, index) => (
+                      <div key={index}>
+                        <Field
+                          name={`signers.${index}.email`}
+                          type="email"
+                          placeholder="johndoe@gmail.com"
+                          className="signer-form-input"
+                        />{' '}
+                        <ErrorMessage
+                          name={`signers.${index}.email`}
+                          component="div"
+                          className="signer-form-error"
+                        />
+                        <RemoveSignerButton
                           isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
                           removeSigner={() => onRemoveSigner(values, setValues)}
-                        /> */}
-                      </tr>
-                    </tbody>
-                    {values.signers.map((_, index) => (
-                      <tbody key={index}>
-                        <tr>
-                          <td>
-                            <Field
-                              name={`signers.${index}.email`}
-                              type="email"
-                              placeholder="johndoe@gmail.com"
-                              className="signer-form-input"
-                            />{' '}
-                            <ErrorMessage
-                              name={`signers.${index}.email`}
-                              component="div"
-                              className="signer-form-error"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
+                        />
+                      </div>
                     ))}
-                  </table>
-                  {/* <div className="mobileonly">
-                    <label>Name</label>
-                    {values.signers.map((_, index) => (
-                    <Field
-                      name={`signers.${index}.name`}
-                      placeholder="John Doe"
-                      className="signer-form-input"
-                    />{' '}
-                    <ErrorMessage
-                      name={`signers.${index}.name`}
-                      component="div"
-                      className="signer-form-error"
-                    />
-                  </div> */}
+                  </div>
                 </>
               )}
             />
@@ -243,6 +208,6 @@ const AddSignersContainer = ({ history }) => {
       </Formik>
     </PageLayout>
   );
-}
+};
 
 export default AddSignersContainer;
