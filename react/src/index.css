@@ -14,13 +14,8 @@ code {
 
 html, body, #root {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media screen and (min-width: 920px) {
-  #root {
-    height: 100%;
-  }
 }
