@@ -155,6 +155,7 @@ a.nolinkdecoration
     width: 100%
 
 .contentparent
+  overflow-x: hidden;
   display: flex
   justify-content: center
   align-items: center
@@ -172,6 +173,14 @@ a.nolinkdecoration
 
   @media (max-width: 320px)
     top: 550px
+
+.nomobile
+  @media (max-width: 920px)
+    display: none;
+
+.mobileonly
+  @media (min-width: 920px)
+    display: none;
 
 .imageshape1
   background-image: url("/images/shapes1.png")
@@ -291,6 +300,13 @@ a.nolinkdecoration
 
 .signer-form-input
   margin: 5px 0px
+
+  @media (max-width: 920px)
+    margin-right: 260px !important;
+
+  @media (max-width: 320px)
+    margin-right: 220px !important;
+
 
 .signer-form-error
   color: red

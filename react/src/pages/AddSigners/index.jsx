@@ -113,55 +113,125 @@ const AddSignersContainer = ({ history }) => {
             <FieldArray
               name="signers"
               render={() => (
-                <table className="fullwidth">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label>Name</label>
-                      </td>
-                      <td className="halfwidth">
-                        <label>Email</label>
-                      </td>
-                    </tr>
-                  </tbody>
-                  {values.signers.map((_, index) => (
-                    <tbody key={index}>
+                <>
+                  <table className="nomobile fullwidth">
+                    <tbody>
                       <tr>
                         <td>
-                          <Field
-                            name={`signers.${index}.name`}
-                            placeholder="John Doe"
-                            className="signer-form-input"
-                            onChange={(e) => onUpdateSigner(e, values, setValues, index, 'name')}
-                          />{' '}
-                          <ErrorMessage
-                            name={`signers.${index}.name`}
-                            component="div"
-                            className="signer-form-error"
-                          />
+                          <label>Name</label>
                         </td>
-                        <td>
-                          <Field
-                            name={`signers.${index}.email`}
-                            type="email"
-                            placeholder="johndoe@gmail.com"
-                            className="signer-form-input"
-                            onChange={(e) => onUpdateSigner(e, values, setValues, index, 'email')}
-                          />{' '}
-                          <ErrorMessage
-                            name={`signers.${index}.email`}
-                            component="div"
-                            className="signer-form-error"
-                          />
+                        <td className="halfwidth">
+                          <label>Email</label>
                         </td>
-                        <RemoveSignerButton
-                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
-                          removeSigner={() => onRemoveSigner(values, setValues)}
-                        />
                       </tr>
                     </tbody>
-                  ))}
-                </table>
+                    {values.signers.map((_, index) => (
+                      <tbody key={index}>
+                        <tr>
+                          <td>
+                            <Field
+                              name={`signers.${index}.name`}
+                              placeholder="John Doe"
+                              className="signer-form-input"
+                            />{' '}
+                            <ErrorMessage
+                              name={`signers.${index}.name`}
+                              component="div"
+                              className="signer-form-error"
+                            />
+                          </td>
+                          <td>
+                            <Field
+                              name={`signers.${index}.email`}
+                              type="email"
+                              placeholder="johndoe@gmail.com"
+                              className="signer-form-input"
+                            />{' '}
+                            <ErrorMessage
+                              name={`signers.${index}.email`}
+                              component="div"
+                              className="signer-form-error"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
+                  </table>
+
+                  {/* Fix the mobile version JOE */}
+                  <table className="mobileonly fullwidth">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label>Name</label>
+                        </td>
+                      </tr>
+                    </tbody>
+                    {values.signers.map((_, index) => (
+                      <tbody key={index}>
+                        <tr>
+                          <td>
+                            <Field
+                              name={`signers.${index}.name`}
+                              placeholder="John Doe"
+                              className="signer-form-input"
+                            />{' '}
+                            <ErrorMessage
+                              name={`signers.${index}.name`}
+                              component="div"
+                              className="signer-form-error"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>))}
+
+                      <tbody>
+                      <tr>
+                        
+                        <td className="halfwidth">
+                          <label>Email</label>
+                        </td>
+                        {/* <RemoveSignerButton
+                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
+                          removeSigner={() => onRemoveSigner(values, setValues)}
+                        /> */}
+                      </tr>
+                    </tbody>
+                    {values.signers.map((_, index) => (
+                      <tbody key={index}>
+                        <tr>
+                          <td>
+                            <Field
+                              name={`signers.${index}.email`}
+                              type="email"
+                              placeholder="johndoe@gmail.com"
+                              className="signer-form-input"
+                            />{' '}
+                            <ErrorMessage
+                              name={`signers.${index}.email`}
+                              component="div"
+                              className="signer-form-error"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
+                  </table>
+                  {/* <div className="mobileonly">
+                    <label>Name</label>
+                    {values.signers.map((_, index) => (
+                    <Field
+                      name={`signers.${index}.name`}
+                      placeholder="John Doe"
+                      className="signer-form-input"
+                    />{' '}
+                    <ErrorMessage
+                      name={`signers.${index}.name`}
+                      component="div"
+                      className="signer-form-error"
+                    />
+                  </div> */}
+                </>
               )}
             />
 
