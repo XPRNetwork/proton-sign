@@ -83,7 +83,7 @@ for ($k = 0; $k < $j; $k++) {
   //print_r($docobj);
   // mail view/sign links to the signers
   //echo($signers[$k]["email"]." Sign file with ProtonSign"." Sign file with ProtonSign\n\n".$docobj->hash."\n ".$docobj->filename."\n\nSign Doc ".$domain_root."prview.php?doc=".$docrequestid."&sig=".$tempsigner->id."\n"." From: ".$email_from);
-  mail($signers[$k]["email"], "Sign file with ProtonSign", "Sign file with ProtonSign\n\n".$docobj->hash."\n ".$docobj->filename."\n\nSign Doc ".$domain_root."?doc=".$docrequestid."&sig=".$tempsigner->id."\n", "From: ".$email_from);
+  mail($signers[$k]["email"], "Sign file with ProtonSign", "Sign file with ProtonSign\n\n".$docobj->hash."\n ".$docobj->filename."\n\nSign Doc ".$sign_link."?doc=".$docrequestid."&sig=".$tempsigner->id."\n", "From: ".$email_from);
 }
 
 //echo "\n\n<br/><br/>Docobj";

@@ -1,8 +1,8 @@
 <?php
-$domain_root = "http://sign.protonchain.com/"; # root of these web/php urls
+$domain_root = "http://35.236.54.120/"; # root of these web/php urls
 $data_dir = "/data/protonsign/"; # directory where overall app is
-$login_link = "http://sign.protonchain.com/"; # link for proton login
-$sign_link = "http://sign.protonchain.com/"; # link for signing
+$login_link = "http://35.236.54.120/"; # link for proton login
+$sign_link = "http://35.236.54.120/sign"; # link for signing
 $email_from = "Proton Sign <sign@protonchain.com>"; # from email address
 $upload_dir = "/data/protonsign/uploads/"; # directory for file uploads
 $json_dir = "/data/protonsign/docinfo/"; # directory for request json's
