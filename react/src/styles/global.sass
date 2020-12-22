@@ -162,7 +162,6 @@ a.nolinkdecoration
     width: 100%
     padding-top: 0px
     font-size: 32px
-    min-height: unset
 
 .contentparent
   display: flex
@@ -241,7 +240,10 @@ a.nolinkdecoration
     width: 240px
 
   @media (max-width: 920px)
-    width: 280px
+    min-width: 280px
+    max-width: 360px
+    min-height: unset
+    height: auto
 
   @media (max-width: 320px)
     width: 240px
