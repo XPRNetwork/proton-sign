@@ -58,6 +58,8 @@ class SignContainer extends React.Component {
     const { docInfo } = this.state;
 
     try {
+      const date = new Date();
+      const memo = `Signed ${docInfo.filename} on ProtonSign (${date.toLocaleString()})`;
       const actions = [
         {
           account: 'xtokens',
@@ -72,15 +74,13 @@ class SignContainer extends React.Component {
             from: actor,
             to: ProtonSDK.requestAccount,
             quantity: '1.000000 FOOBAR',
-            memo: 'ProtonSign ' + docInfo.hash,
+            memo,
           },
         },
       ];
       const tx = await ProtonSDK.sendTransaction(actions);
       if (tx.processed.id) {
-        // TODO axios get to php to log the transaction / signing
         const parsed = queryString.parse(window.location.search);
-
         const formData = new FormData();
         formData.append('doc', parsed.doc);
         formData.append('sig', parsed.sig);
@@ -135,7 +135,7 @@ class SignContainer extends React.Component {
       <PageLayout firstTitleLine="Please Sign Document">
         <div className="checksumbox little">Checksum: {hash}</div>
 
-        <FileInfo filename={filename} filesize={filesize}>
+        <FileInfo filename={filename} filesize={filesize.toString()}>
           <td className="right">
             <p>
               <a className="lav nolinkdecoration little" href={downloadlink}>

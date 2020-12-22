@@ -10,6 +10,7 @@ const AddSignersContainer = ({ history }) => {
   const { actor, docInfo } = useContext(AppContext);
 
   const onAddSigner = (_, values, setValues) => {
+    if (values.signers.length > 4) return;
     const signers = [...values.signers];
     signers.push({ name: '', email: '' });
     setValues({ ...values, signers });
@@ -69,7 +70,7 @@ const AddSignersContainer = ({ history }) => {
     <PageLayout
       firstTitleLine="Who needs to sign this"
       secondTitleLine="document?">
-      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize}>
+      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize.toString()}>
         <td className="right x-icon" onClick={() => history.push('/')}>
           <img src="./images/x.png" alt="x-icon" />
         </td>
