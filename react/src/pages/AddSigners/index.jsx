@@ -103,12 +103,12 @@ const AddSignersContainer = ({ history }) => {
           <Form>
             <div className="fullwidth add-signer-container">
               <p>Signers</p>
-              <div
-                className="grey add-signer"
-                onClick={() => onAddSigner(values, setValues)}>
+              <button
+                className="nomobile grey add-signer"
+                onClick={(e) => onAddSigner(e, values, setValues)}>
                 <img src="./images/addsigner.png" alt="Add Signer" />
                 <span>Add signer</span>
-              </div>
+              </button>
             </div>
 
             <FieldArray
@@ -160,9 +160,9 @@ const AddSignersContainer = ({ history }) => {
                   </table>
 
                   <div className="mobileonly">
-                    <label className="bold">Name</label>
                     {values.signers.map((_, index) => (
-                      <div key={index}>
+                      <div className="signerspacing" key={index}>
+                        <label className="bold">Name</label>
                         <Field
                           name={`signers.${index}.name`}
                           placeholder="John Doe"
@@ -173,11 +173,7 @@ const AddSignersContainer = ({ history }) => {
                           component="div"
                           className="signer-form-error"
                         />
-                      </div>
-                    ))}
-                    <label className="bold">Email</label>
-                    {values.signers.map((_, index) => (
-                      <div key={index}>
+                        <label className="bold">Email</label>
                         <Field
                           name={`signers.${index}.email`}
                           type="email"
@@ -200,7 +196,14 @@ const AddSignersContainer = ({ history }) => {
               )}
             />
 
-            <button onClick={() => handleSubmit(values)} className="lavbutton" disabled={isSubmitting}>
+            <button
+              className="mobileonly grey add-signer"
+              onClick={(e) => onAddSigner(e, values, setValues)}>
+              <img src="./images/addsigner.png" alt="Add Signer" />
+              <span>Add signer</span>
+            </button>
+
+            <button className="lavbutton" disabled={isSubmitting}>
               Submit for signing
             </button>
           </Form>
