@@ -6,13 +6,23 @@ import PageLayout from '../../components/PageLayout';
 import FileInfo from '../../components/FileInfo';
 import { AppContext } from '../../components/Provider';
 
+const RemoveSignerButton = ({ isLastSigner, removeSigner }) => isLastSigner ? (
+  <td className="remove-signer-button" onClick={removeSigner}>
+    <img src="./images/x.png" alt="x-icon" />
+  </td>
+): null;
+
 const AddSignersContainer = ({ history }) => {
   const { actor, docInfo } = useContext(AppContext);
 
-  const onAddSigner = (_, values, setValues) => {
+  const onAddSigner = (values, setValues) => {
     if (values.signers.length > 4) return;
-    const signers = [...values.signers];
-    signers.push({ name: '', email: '' });
+    const signers = [...values.signers, { name: '', email: '' }];
+    setValues({ ...values, signers });
+  };
+
+  const onRemoveSigner = (values, setValues) => {
+    const signers = [...values.signers.slice(0, values.signers.length - 1)];
     setValues({ ...values, signers });
   };
 
@@ -26,6 +36,8 @@ const AddSignersContainer = ({ history }) => {
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
+    if (!values[values.length - 1].name) return;
+
     setTimeout(() => {
       const formData = new FormData();
       for (let key in values.signers) {
@@ -85,7 +97,7 @@ const AddSignersContainer = ({ history }) => {
               <p>Signers</p>
               <button
                 className="grey add-signer"
-                onClick={(e) => onAddSigner(e, values, setValues)}>
+                onClick={() => onAddSigner(values, setValues)}>
                 <img src="./images/addsigner.png" alt="Add Signer" />
                 <span>Add signer</span>
               </button>
@@ -133,6 +145,10 @@ const AddSignersContainer = ({ history }) => {
                             className="signer-form-error"
                           />
                         </td>
+                        <RemoveSignerButton
+                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
+                          removeSigner={() => onRemoveSigner(values, setValues)}
+                        />
                       </tr>
                     </tbody>
                   ))}
