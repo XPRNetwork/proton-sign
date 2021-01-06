@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
@@ -14,7 +14,8 @@ const RemoveSignerButton = ({ isLastSigner, removeSigner }) => isLastSigner ? (
 
 const AddSignersContainer = ({ history }) => {
   const { actor, docInfo } = useContext(AppContext);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const onAddSigner = (values, setValues) => {
     if (values.signers.length > 4) return;
     const signers = [...values.signers, { name: '', email: '' }];
@@ -23,6 +24,12 @@ const AddSignersContainer = ({ history }) => {
 
   const onRemoveSigner = (values, setValues) => {
     const signers = [...values.signers.slice(0, values.signers.length - 1)];
+    setValues({ ...values, signers });
+  };
+
+  const onUpdateSigner = (e, values, setValues, signerNumber, fieldName) => {
+    const signers = [...values.signers];
+    signers[signerNumber][fieldName] = e.target.value;
     setValues({ ...values, signers });
   };
 
@@ -35,8 +42,9 @@ const AddSignersContainer = ({ history }) => {
     ),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    if (!values.signers[values.signers.length - 1].name) return;
+  const handleSubmit = (values) => {
+    if (!values.signers[values.signers.length - 1].email) return;
+    setIsSubmitting(true);
 
     setTimeout(() => {
       const formData = new FormData();
@@ -74,7 +82,7 @@ const AddSignersContainer = ({ history }) => {
           }
         })
         .catch((err) => console.error(err));
-      setSubmitting(false);
+      setIsSubmitting(false);
     }, 400);
   }
 
@@ -89,9 +97,8 @@ const AddSignersContainer = ({ history }) => {
       </FileInfo>
       <Formik
         initialValues={{ signers: [{ name: '', email: '' }] }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}>
-        {({ values, setValues, isSubmitting }) => (
+        validationSchema={validationSchema}>
+        {({ values, setValues }) => (
           <Form>
             <div className="fullwidth add-signer-container">
               <p>Signers</p>
@@ -125,6 +132,7 @@ const AddSignersContainer = ({ history }) => {
                             name={`signers.${index}.name`}
                             placeholder="John Doe"
                             className="signer-form-input"
+                            onChange={(e) => onUpdateSigner(e, values, setValues, index, 'name')}
                           />{' '}
                           <ErrorMessage
                             name={`signers.${index}.name`}
@@ -138,6 +146,7 @@ const AddSignersContainer = ({ history }) => {
                             type="email"
                             placeholder="johndoe@gmail.com"
                             className="signer-form-input"
+                            onChange={(e) => onUpdateSigner(e, values, setValues, index, 'email')}
                           />{' '}
                           <ErrorMessage
                             name={`signers.${index}.email`}
@@ -156,7 +165,7 @@ const AddSignersContainer = ({ history }) => {
               )}
             />
 
-            <button className="lavbutton" disabled={isSubmitting}>
+            <button onClick={() => handleSubmit(values)} className="lavbutton" disabled={isSubmitting}>
               Submit for signing
             </button>
           </Form>
