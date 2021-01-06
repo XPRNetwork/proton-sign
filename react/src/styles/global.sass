@@ -54,6 +54,7 @@ input
   text-decoration: none
   color: $black
   cursor: pointer
+  padding-bottom: 15px
 
 a.nolinkdecoration
   text-decoration: none
@@ -143,14 +144,14 @@ a.nolinkdecoration
   font-size: 38px
   padding: 25px
   width: 1022px
-  height: auto
-  min-height: 528px
+  height: 528px
   text-align: center
   margin: 0% 5%
   display: flex
   flex-direction: column
   justify-content: flex-start
   align-items: center
+  min-height: 500px
 
   @media (max-width: 920px)
     width: 100%
@@ -161,7 +162,7 @@ a.nolinkdecoration
   display: flex
   justify-content: center
   align-items: center
-  padding-top: 8px
+  padding-top: 21px
   padding-bottom: 148px
 
   @media (max-width: 920px)
@@ -177,7 +178,7 @@ a.nolinkdecoration
 .mobileonly
   @media (min-width: 920px)
     padding-top: 200px
-    display: none
+    display: none !important
 
 .mobileonly div
 
@@ -186,17 +187,12 @@ a.nolinkdecoration
   background-image: url("/images/shapes1.png")
   min-width: 277px
   height: 280px
-  position: absolute
-  right: 570px
+  position: relative
+  left: 125px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
   z-index: 1
-
-  @media (max-width: 920px)
-    position: relative
-    left: 125px
-    right: 0px
 
 .bold
   font-weight: 500
@@ -205,16 +201,12 @@ a.nolinkdecoration
   background-image: url("/images/shapes2.png")
   min-width: 277px
   height: 280px
-  position: absolute
-  left: 570px
+  position: relative
+  right: 125px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
   z-index: 1
-
-  @media (max-width: 920px)
-    position: relative
-    left: -125px
 
 .contentbox
   border-radius: 25px
@@ -224,9 +216,10 @@ a.nolinkdecoration
   text-align: left
   padding: 30px
   width: 646px
-  min-height: 350px
+  min-height: 344px
   left: 168px
   z-index: 2
+  box-shadow: 0 8px 12px -4px rgba(130, 136, 148, 0.24), 0 0 4px 0 rgba(141, 141, 148, 0.16), 0 0 2px 0 rgba(141, 141, 148, 0.12);
 
   @media (max-width: 920px)
     min-width: 280px
@@ -239,8 +232,9 @@ a.nolinkdecoration
 
 .afterwords
   margin: 40px 0px
-  width: 1022px
+  width: 100%;
   display: flex
+  align-items: flex-start
   justify-content: center
   margin-left: 5%
   margin-right: 5%

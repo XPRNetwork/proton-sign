@@ -20,6 +20,7 @@ const PageLayout = ({
   firstTitleLine,
   secondTitleLine,
   isHomePage,
+  isSignPage,
 }) => {
   const { actor, accountData, login, logout } = useContext(AppContext);
 
@@ -68,7 +69,7 @@ const PageLayout = ({
           <div className="imageshape2"></div>
         </div>
       </div>
-      {isHomePage && <Afterwords />}
+      {(isHomePage || isSignPage) && <Afterwords />}
     </div>
   );
 };

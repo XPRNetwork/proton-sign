@@ -132,7 +132,7 @@ class SignContainer extends React.Component {
     const signer = isLoggedIn ? `I, ${accountData.name},` : `I`;
 
     return (
-      <PageLayout firstTitleLine="Please Sign Document">
+      <PageLayout isSignPage firstTitleLine="Please Sign Document">
         <div className="checksumbox little">Checksum: {hash}</div>
 
         <FileInfo filename={filename} filesize={filesize.toString()}>
