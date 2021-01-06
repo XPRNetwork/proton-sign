@@ -36,7 +36,7 @@ const AddSignersContainer = ({ history }) => {
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
-    if (!values[values.length - 1].name) return;
+    if (!values.signers[values.signers.length - 1].name) return;
 
     setTimeout(() => {
       const formData = new FormData();
@@ -95,12 +95,12 @@ const AddSignersContainer = ({ history }) => {
           <Form>
             <div className="fullwidth add-signer-container">
               <p>Signers</p>
-              <button
+              <div
                 className="grey add-signer"
                 onClick={() => onAddSigner(values, setValues)}>
                 <img src="./images/addsigner.png" alt="Add Signer" />
                 <span>Add signer</span>
-              </button>
+              </div>
             </div>
 
             <FieldArray
