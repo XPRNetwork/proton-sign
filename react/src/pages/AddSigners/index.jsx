@@ -105,7 +105,7 @@ const AddSignersContainer = ({ history }) => {
               <p>Signers</p>
               <button
                 className="nomobile grey add-signer"
-                onClick={(e) => onAddSigner(e, values, setValues)}>
+                onClick={() => onAddSigner(values, setValues)}>
                 <img src="./images/addsigner.png" alt="Add Signer" />
                 <span>Add signer</span>
               </button>
@@ -155,6 +155,10 @@ const AddSignersContainer = ({ history }) => {
                             />
                           </td>
                         </tr>
+                        <RemoveSignerButton
+                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
+                          removeSigner={() => onRemoveSigner(values, setValues)}
+                        />
                       </tbody>
                     ))}
                   </table>
@@ -198,7 +202,7 @@ const AddSignersContainer = ({ history }) => {
 
             <button
               className="mobileonly grey add-signer"
-              onClick={(e) => onAddSigner(e, values, setValues)}>
+              onClick={() => onAddSigner(values, setValues)}>
               <img src="./images/addsigner.png" alt="Add Signer" />
               <span>Add signer</span>
             </button>
