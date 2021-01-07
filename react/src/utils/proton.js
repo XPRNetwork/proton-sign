@@ -41,8 +41,6 @@ class ProtonSDK {
     try {
       await this.connect();
       const { auth, accountData } = this.session;
-      
-      localStorage.setItem('savedUserAuth-sign', JSON.stringify(auth));
       return {
         auth,
         accountData: accountData[0]
@@ -66,7 +64,6 @@ class ProtonSDK {
   
   logout = async () => {
     await this.link.removeSession(this.requestAccount, this.session.auth);
-    localStorage.removeItem('savedUserAuth-sign');
   };
 
   restoreSession = async () => {
