@@ -17,8 +17,8 @@ const App = () => (
         path="/signaturecompleted"
         render={() => (
           <SuccessNotification
-            firstTitleLine="Great! You've signed the"
-            secondTitleLine="document!"
+            firstTitleLine="Great! You've signed"
+            secondTitleLine="the document!"
             firstLabelLine="Check your email for a"
             secondLabelLine="confirmation."
           />

@@ -1,6 +1,5 @@
 import { ConnectWallet } from '@protonprotocol/proton-web-sdk';
 import Logo from '../logo.svg';
-
 class ProtonSDK {
   constructor() {
     this.chainId = '384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0';
@@ -10,14 +9,14 @@ class ProtonSDK {
     this.session = null;
     this.link = null;
   }
-
+  
   connect = async (options) => {
     const walletOptions = {
       restoreSession: false,
       showSelector: true,
       ...options
     };
-
+    
     const { link, session } = await ConnectWallet({
       linkOptions: {
         chainId: this.chainId,
@@ -37,7 +36,7 @@ class ProtonSDK {
     this.link = link;
     this.session = session;
   };
-
+  
   login = async () => {
     try {
       await this.connect();
@@ -50,7 +49,7 @@ class ProtonSDK {
       return e;
     }
   };
-
+  
   sendTransaction = async (actions) => {
     try {
       const result = await this.session.transact(
@@ -62,7 +61,7 @@ class ProtonSDK {
       return e;
     }
   };
-
+  
   logout = async () => {
     await this.link.removeSession(this.requestAccount, this.session.auth);
   };
