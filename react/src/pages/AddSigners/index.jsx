@@ -92,7 +92,9 @@ const AddSignersContainer = ({ history }) => {
     <PageLayout
       firstTitleLine="Who needs to sign this"
       secondTitleLine="document?">
-      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize.toString()}>
+      <FileInfo
+        filename={docInfo.filename}
+        filesize={docInfo.filesize.toString()}>
         <td className="right x-icon" onClick={() => history.push('/')}>
           <img src="./images/x.png" alt="x-icon" />
         </td>
