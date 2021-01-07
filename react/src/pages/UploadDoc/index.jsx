@@ -33,7 +33,7 @@ const UploadDoc = ({ onFileUpload }) => {
                 </p>
 
                 <ul className="center">
-                  <li>
+                  <li className="center-mobile">
                     <label className="upload grey">Supports: PDF files</label>
                   </li>
                 </ul>

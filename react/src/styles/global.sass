@@ -54,6 +54,7 @@ input
   text-decoration: none
   color: $black
   cursor: pointer
+  padding-bottom: 15px
 
 a.nolinkdecoration
   text-decoration: none
@@ -67,6 +68,11 @@ a.nolinkdecoration
   align-items: center
   justify-content: space-between
   width: 1022px
+
+  @media (max-width: 920px)
+    margin: 40px 0px
+    width: 100%
+    justify-content: space-around
 
 .formtitle
   font-family: Poppins
@@ -120,6 +126,13 @@ a.nolinkdecoration
   height: 210px
   padding: 70px
   outline: 0
+  
+  @media (max-width: 920px)
+    width: 250px
+    padding: 75px 15px
+  
+  @media (max-width: 320px)
+    width: 210px
 
 .success
   width: 80px
@@ -131,39 +144,65 @@ a.nolinkdecoration
   font-size: 38px
   padding: 25px
   width: 1022px
-  height: auto
-  min-height: 528px
+  height: 528px
   text-align: center
   margin: 0% 5%
   display: flex
   flex-direction: column
   justify-content: flex-start
   align-items: center
+  min-height: 500px
+
+  @media (max-width: 920px)
+    width: 100%
+    padding-top: 0px
+    font-size: 32px
 
 .contentparent
   display: flex
   justify-content: center
   align-items: center
-  position: absolute
-  top: 350px
+  padding-top: 21px
+  padding-bottom: 148px
+
+  @media (max-width: 920px)
+    width: 100%
+    min-height: 400px
+    align-items: flex-start
+    padding-bottom: 40%
+
+.nomobile
+  @media (max-width: 920px)
+    display: none !important
+
+.mobileonly
+  @media (min-width: 920px)
+    padding-top: 200px
+    display: none !important
+
+.mobileonly div
+
 
 .imageshape1
   background-image: url("/images/shapes1.png")
-  width: 277px
+  min-width: 277px
   height: 280px
-  position: absolute
-  right: 570px
+  position: relative
+  left: 125px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
   z-index: 1
 
+.bold
+  font-weight: 500
+
 .imageshape2
   background-image: url("/images/shapes2.png")
-  width: 277px
+  min-width: 277px
   height: 280px
-  position: absolute
-  left: 570px
+  position: relative
+  right: 125px
   padding-bottom: 140px
   background-repeat: no-repeat
   background-position: bottom
@@ -177,21 +216,36 @@ a.nolinkdecoration
   text-align: left
   padding: 30px
   width: 646px
-  min-height: 350px
+  min-height: 344px
   left: 168px
   z-index: 2
+  box-shadow: 0 8px 12px -4px rgba(130, 136, 148, 0.24), 0 0 4px 0 rgba(141, 141, 148, 0.16), 0 0 2px 0 rgba(141, 141, 148, 0.12)
+
+  @media (max-width: 920px)
+    min-width: 280px
+    max-width: 360px
+    min-height: unset
+    height: auto
+
+  @media (max-width: 320px)
+    width: 240px
 
 .afterwords
   margin: 40px 0px
-  width: 1022px
+  width: 100%
   display: flex
+  align-items: flex-start
   justify-content: center
   margin-left: 5%
   margin-right: 5%
+  padding-top: 150px
 
 .title
   font-family: Poppins
   padding: 35px
+
+  @media (max-width: 920px)
+    padding: 35px 16px
 
 .grey
   font-size: 14px
@@ -236,7 +290,15 @@ a.nolinkdecoration
     height: 20px
 
 .signer-form-input
-  margin: 5px 0px
+  margin: 8px 0px 4px 0px
+
+  @media (max-width: 920px)
+    -webkit-appearance: none
+    margin-right: 260px
+
+  @media (max-width: 320px)
+    margin-right: 220px
+
 
 .signer-form-error
   color: red
@@ -249,7 +311,7 @@ a.nolinkdecoration
 .remove-signer-button img
   height: 20px
   cursor: pointer
-  margin-left: -8px
+  padding-top: 8px
 
 .halfwidth
   width: 50%
@@ -274,13 +336,7 @@ a.nolinkdecoration
   display: flex
   flex-direction: column
   align-items: center
-
-  @include for-phone-only
-    width: calc(100vw - 60px)
-  @include for-tablet-portrait-up
-    width: calc(100vw - 100px)
-  @include for-tablet-portrait-landscape-up
-    width: calc(100vw - 120px)
+  overflow-x: hidden
 
 .header
   position: relative
@@ -296,10 +352,21 @@ a.nolinkdecoration
   outline: none
 
 .header-avatar
-  border-radius: 100%
-  width: 70px
-  height: 70px
+  border-radius: 50%
+  width: 48px
+  height: 48px
   background-position: center
   background-size: auto 110%
   background-repeat: no-repeat
   cursor: pointer
+
+.center-mobile 
+  margin: 0
+  padding: 0
+  text-align: center
+
+.signerspacing
+  padding-bottom: 12px
+
+.signerspacing:not(:last-child)
+  padding-bottom: 24px
