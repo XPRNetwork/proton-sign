@@ -6,16 +6,17 @@ import PageLayout from '../../components/PageLayout';
 import FileInfo from '../../components/FileInfo';
 import { AppContext } from '../../components/Provider';
 
-const RemoveSignerButton = ({ isLastSigner, removeSigner }) => isLastSigner ? (
-  <td className="remove-signer-button" onClick={removeSigner}>
-    <img src="./images/x.png" alt="x-icon" />
-  </td>
-): null;
+const RemoveSignerButton = ({ isLastSigner, removeSigner }) =>
+  isLastSigner ? (
+    <td className="remove-signer-button" onClick={removeSigner}>
+      <img src="./images/x.png" alt="x-icon" />
+    </td>
+  ) : null;
 
 const AddSignersContainer = ({ history }) => {
   const { actor, docInfo } = useContext(AppContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const onAddSigner = (values, setValues) => {
     if (values.signers.length > 4) return;
     const signers = [...values.signers, { name: '', email: '' }];
@@ -91,7 +92,9 @@ const AddSignersContainer = ({ history }) => {
     <PageLayout
       firstTitleLine="Who needs to sign this"
       secondTitleLine="document?">
-      <FileInfo filename={docInfo.filename} filesize={docInfo.filesize.toString()}>
+      <FileInfo
+        filename={docInfo.filename}
+        filesize={docInfo.filesize.toString()}>
         <td className="right x-icon" onClick={() => history.push('/')}>
           <img src="./images/x.png" alt="x-icon" />
         </td>
@@ -134,6 +137,15 @@ const AddSignersContainer = ({ history }) => {
                               name={`signers.${index}.name`}
                               placeholder="John Doe"
                               className="signer-form-input"
+                              onChange={(e) =>
+                                onUpdateSigner(
+                                  e,
+                                  values,
+                                  setValues,
+                                  index,
+                                  'name'
+                                )
+                              }
                             />{' '}
                             <ErrorMessage
                               name={`signers.${index}.name`}
@@ -147,6 +159,15 @@ const AddSignersContainer = ({ history }) => {
                               type="email"
                               placeholder="johndoe@gmail.com"
                               className="signer-form-input"
+                              onChange={(e) =>
+                                onUpdateSigner(
+                                  e,
+                                  values,
+                                  setValues,
+                                  index,
+                                  'email'
+                                )
+                              }
                             />{' '}
                             <ErrorMessage
                               name={`signers.${index}.email`}
@@ -156,7 +177,10 @@ const AddSignersContainer = ({ history }) => {
                           </td>
                         </tr>
                         <RemoveSignerButton
-                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
+                          isLastSigner={
+                            values.signers.length !== 1 &&
+                            values.signers.length === index + 1
+                          }
                           removeSigner={() => onRemoveSigner(values, setValues)}
                         />
                       </tbody>
@@ -171,6 +195,9 @@ const AddSignersContainer = ({ history }) => {
                           name={`signers.${index}.name`}
                           placeholder="John Doe"
                           className="signer-form-input"
+                          onChange={(e) =>
+                            onUpdateSigner(e, values, setValues, index, 'name')
+                          }
                         />{' '}
                         <ErrorMessage
                           name={`signers.${index}.name`}
@@ -183,6 +210,9 @@ const AddSignersContainer = ({ history }) => {
                           type="email"
                           placeholder="johndoe@gmail.com"
                           className="signer-form-input"
+                          onChange={(e) =>
+                            onUpdateSigner(e, values, setValues, index, 'email')
+                          }
                         />{' '}
                         <ErrorMessage
                           name={`signers.${index}.email`}
@@ -190,24 +220,30 @@ const AddSignersContainer = ({ history }) => {
                           className="signer-form-error"
                         />
                         <RemoveSignerButton
-                          isLastSigner={values.signers.length !== 1 && values.signers.length === index + 1}
+                          isLastSigner={
+                            values.signers.length !== 1 &&
+                            values.signers.length === index + 1
+                          }
                           removeSigner={() => onRemoveSigner(values, setValues)}
                         />
                       </div>
                     ))}
+
+                    <button
+                      className="grey add-signer"
+                      onClick={() => onAddSigner(values, setValues)}>
+                      <img src="./images/addsigner.png" alt="Add Signer" />
+                      <span>Add signer</span>
+                    </button>
                   </div>
                 </>
               )}
             />
 
             <button
-              className="mobileonly grey add-signer"
-              onClick={() => onAddSigner(values, setValues)}>
-              <img src="./images/addsigner.png" alt="Add Signer" />
-              <span>Add signer</span>
-            </button>
-
-            <button className="lavbutton" disabled={isSubmitting}>
+              className="lavbutton"
+              disabled={isSubmitting}
+              onClick={() => handleSubmit(values)}>
               Submit for signing
             </button>
           </Form>
