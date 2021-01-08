@@ -50,7 +50,7 @@ const PageLayout = ({
   return (
     <div className="page">
       <header className="titleline">
-        <h1>
+        <h1 className="logoTitle">
           Proton<span className="lav">Sign</span>
         </h1>
         {avatarOrLoginButton}
