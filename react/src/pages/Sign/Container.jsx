@@ -59,7 +59,7 @@ class SignContainer extends React.Component {
 
     try {
       const date = new Date();
-      const memo = `Signed ${docInfo.filename} on ProtonSign (${date.toLocaleString()})`;
+      const memo = `Signed ${docInfo.filename} with hash ${docInfo.hash} on ProtonSign (${date.toLocaleString()})`;
       const actions = [
         {
           account: 'xtokens',
