@@ -36,7 +36,7 @@ const PageLayout = ({
 
   const avatarOrLoginButton = actor ? (
     <img
-      src={accountData.avatar
+      src={accountData && accountData.avatar
         ? `data:image/jpeg;base64,${accountData.avatar}`
         : './images/default-avatar.png'}
       alt="avatar"
