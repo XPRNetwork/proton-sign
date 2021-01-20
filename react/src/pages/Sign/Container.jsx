@@ -102,10 +102,7 @@ class SignContainer extends React.Component {
               }
 
               if (isResult) {
-                history.push({
-                  pathname: '/signaturecompleted',
-                  search: window.location.search,
-                });
+                history.push('/signaturecompleted');
               } else {
                 console.warn(data);
               }

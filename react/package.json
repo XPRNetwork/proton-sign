@@ -2,7 +2,7 @@
   "name": "protonsign",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://35.236.54.120/",
+  "proxy": "https://sign.protonchain.com/",
   "dependencies": {
     "@protonprotocol/proton-web-sdk": "2.6.0",
     "@testing-library/jest-dom": "^5.11.5",
