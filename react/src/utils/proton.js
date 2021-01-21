@@ -1,4 +1,4 @@
-import { ConnectWallet } from '@protonprotocol/proton-web-sdk';
+import { ConnectWallet } from '@proton/web-sdk';
 import Logo from '../logo.svg';
 class ProtonSDK {
   constructor() {
