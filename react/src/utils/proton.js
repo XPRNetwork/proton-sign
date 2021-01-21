@@ -1,5 +1,6 @@
 import { ConnectWallet } from '@proton/web-sdk';
 import Logo from '../logo.svg';
+
 class ProtonSDK {
   constructor() {
     this.chainId = '384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0';
@@ -10,18 +11,12 @@ class ProtonSDK {
     this.link = null;
   }
   
-  connect = async (options) => {
-    const walletOptions = {
-      restoreSession: false,
-      showSelector: true,
-      ...options
-    };
-    
+  connect = async ({ restoreSession }) => {
     const { link, session } = await ConnectWallet({
       linkOptions: {
         chainId: this.chainId,
         endpoints: this.endpoints,
-        restoreSession: walletOptions.restoreSession,
+        restoreSession,
       },
       transportOptions: {
         requestAccount: this.requestAccount,
@@ -30,7 +25,6 @@ class ProtonSDK {
       selectorOptions: {
         appName: this.appName,
         appLogo: Logo,
-        showSelector: walletOptions.showSelector,
       },
     });
     this.link = link;
@@ -39,7 +33,7 @@ class ProtonSDK {
   
   login = async () => {
     try {
-      await this.connect();
+      await this.connect({ restoreSession: false });
       const { auth, accountData } = this.session;
       return {
         auth,
@@ -68,7 +62,7 @@ class ProtonSDK {
 
   restoreSession = async () => {
     try {
-      await this.connect({ restoreSession: true, showSelector: false });
+      await this.connect({ restoreSession: true });
       if (this.session) {
         const { auth, accountData } = this.session;
         return {
