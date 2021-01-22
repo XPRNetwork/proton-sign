@@ -43,49 +43,41 @@ const AddSignersContainer = ({ history }) => {
     ),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     if (!values.signers[values.signers.length - 1].email) return;
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const formData = new FormData();
-      for (let key in values.signers) {
-        formData.append('name' + key, `${values.signers[key].name}`);
-        formData.append('email' + key, `${values.signers[key].email}`);
-      }
-      formData.append('sa', actor);
-      formData.append('docrequestid', docInfo.id); // TODO fix this
+    const formData = new FormData();
 
-      axios
-        .post('/psignapi/addsigners.php', formData)
-        .then((res) => {
-          const isValidResponse =
-            typeof res === 'object' && res !== null && 'data' in res;
+    for (let key in values.signers) {
+      formData.append('name' + key, `${values.signers[key].name}`);
+      formData.append('email' + key, `${values.signers[key].email}`);
+    }
 
-          if (isValidResponse) {
-            const data = res.data;
-            const isObject = typeof data === 'object' && data !== null;
-            const isError = isObject && 'error' in data;
-            const isResult = isObject && 'result' in res.data;
+    formData.append('sa', actor);
+    formData.append('docrequestid', docInfo.id);
 
-            if (isError) {
-              console.warn('error: ' + data['error']);
-              alert('error: ' + data['error']);
-            }
+    const res = await axios.post('/psignapi/addsigners.php', formData);
+    const isValidResponse =
+    typeof res === 'object' && res !== null && 'data' in res;
+    const isValidData = typeof res.data === 'object' && res.data !== null;
+    const isError = isValidResponse && isValidData && 'error' in res.data;
+    const isResult = isValidResponse && isValidData && 'result' in res.data;
+    setIsSubmitting(false);
 
-            if (isResult) {
-              console.warn('result: ' + data['result']);
-              history.push({
-                pathname: '/signersnotified',
-              });
-            }
-          } else {
-            console.warn('unsuccessful post');
-          }
-        })
-        .catch((err) => console.error(err));
-      setIsSubmitting(false);
-    }, 400);
+    if (isError) {
+      alert('Error: ' + res.data['error']);
+      return;
+    }
+
+    if (!isResult) {
+      alert('Unable to add signers. Please try again.');
+      return;
+    }
+
+    history.push({
+      pathname: '/signersnotified',
+    });
   };
 
   return (
