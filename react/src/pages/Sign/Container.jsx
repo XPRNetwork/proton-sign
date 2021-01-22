@@ -81,38 +81,41 @@ class SignContainer extends React.Component {
       const tx = await ProtonSDK.sendTransaction(actions);
       if (tx.processed.id) {
         const parsed = queryString.parse(window.location.search);
-        const formData = new FormData();
-        formData.append('doc', parsed.doc);
-        formData.append('sig', parsed.sig);
-        formData.append('tx', tx.processed.id);
 
-        axios
-          .post('/psignapi/logsignature.php', formData)
-          .then((res) => {
-            const isValidResponse = typeof res === 'object' && res !== null && 'data' in res;
+        setTimeout(() => {
+          const formData = new FormData();
+          formData.append('doc', parsed.doc);
+          formData.append('sig', parsed.sig);
+          formData.append('tx', tx.processed.id);
 
-            if (isValidResponse) {
-              const data = res.data;
-              const isObject = typeof data === 'object' && data !== null;
-              const isError = isObject && 'error' in data;
-              const isResult = isObject && 'result' in res.data;
+          axios
+            .post('/psignapi/logsignature.php', formData)
+            .then((res) => {
+              const isValidResponse = typeof res === 'object' && res !== null && 'data' in res;
 
-              if (isError) {
-                console.error('error: ' + data['error']);
-              }
+              if (isValidResponse) {
+                const data = res.data;
+                const isObject = typeof data === 'object' && data !== null;
+                const isError = isObject && 'error' in data;
+                const isResult = isObject && 'result' in res.data;
 
-              if (isResult) {
-                history.push('/signaturecompleted');
+                if (isError) {
+                  console.error('error: ' + data['error']);
+                }
+
+                if (isResult) {
+                  history.push('/signaturecompleted');
+                } else {
+                  console.warn(data);
+                }
               } else {
-                console.warn(data);
+                console.warn('unsuccessful post');
               }
-            } else {
-              console.warn('unsuccessful post');
-            }
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
+            })
+            .catch((err) => {
+              console.warn(err);
+            });
+          }, 400);
       } else {
         console.warn(tx);
       }
