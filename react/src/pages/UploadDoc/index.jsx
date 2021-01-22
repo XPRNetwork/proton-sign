@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import { PropTypes } from 'prop-types';
 import PageLayout from '../../components/PageLayout';
 import { AppContext } from '../../components/Provider';
+import upload from '../../logo.svg';
 
 const UploadDoc = ({ onFileUpload }) => {
   const { accountData } = useContext(AppContext);
@@ -25,7 +26,7 @@ const UploadDoc = ({ onFileUpload }) => {
                 {isDragReject && 'Only PDF files are accepted, sorry!'}
 
                 <div className="center">
-                  <img src="./images/upload.png" alt="Upload File" />
+                  <img src={upload} alt="Upload File" />
                 </div>
 
                 <p className="center upload">
