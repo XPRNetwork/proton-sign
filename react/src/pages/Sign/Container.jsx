@@ -19,37 +19,30 @@ class SignContainer extends React.Component {
     this.loadDocInfo();
   }
 
-  loadDocInfo() {
+  loadDocInfo = async () => {
     const parsed = queryString.parse(window.location.search);
     const formData = new FormData();
     formData.append('doc', parsed.doc);
     formData.append('sig', parsed.sig);
 
-    axios
-      .post('/psignapi/docinfo.php', formData)
-      .then((res) => {
-        if (typeof res === 'object' && res !== null && 'data' in res) {
-          const data = res.data;
-          if (typeof data === 'object' && data !== null && 'error' in data) {
-            alert('error: ' + data['error']);
-          }
-          if (
-            typeof data === 'object' &&
-            data !== null &&
-            'result' in res.data
-          ) {
-            this.setState({ docInfo: res.data['result'] });
-          } else {
-            console.warn("didn't make it to res processing");
-            console.warn(data);
-          }
-        } else {
-          console.warn('unsuccessful post');
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const res = await axios.post('/psignapi/docinfo.php', formData);
+    const isValidResponse =
+      typeof res === 'object' && res !== null && 'data' in res;
+    const isValidData = typeof res.data === 'object' && res.data !== null;
+    const isError = isValidResponse && isValidData && 'error' in res.data;
+    const isResult = isValidResponse && isValidData && 'result' in res.data;
+
+    if (isError) {
+      alert('Error: ' + res.data['error']);
+      return;
+    }
+
+    if (!isResult) {
+      alert('Unable to load document. Please try again.');
+      return;
+    }
+
+    this.setState({ docInfo: res.data['result'] });
   }
 
   signDocument = async () => {
@@ -78,44 +71,36 @@ class SignContainer extends React.Component {
           },
         },
       ];
+
       const tx = await ProtonSDK.sendTransaction(actions);
-      if (tx.processed.id) {
-        const parsed = queryString.parse(window.location.search);
-        const formData = new FormData();
-        formData.append('doc', parsed.doc);
-        formData.append('sig', parsed.sig);
-        formData.append('tx', tx.processed.id);
 
-        axios
-          .post('/psignapi/logsignature.php', formData)
-          .then((res) => {
-            const isValidResponse = typeof res === 'object' && res !== null && 'data' in res;
-
-            if (isValidResponse) {
-              const data = res.data;
-              const isObject = typeof data === 'object' && data !== null;
-              const isError = isObject && 'error' in data;
-              const isResult = isObject && 'result' in res.data;
-
-              if (isError) {
-                console.error('error: ' + data['error']);
-              }
-
-              if (isResult) {
-                history.push('/signaturecompleted');
-              } else {
-                console.warn(data);
-              }
-            } else {
-              console.warn('unsuccessful post');
-            }
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
-      } else {
-        console.warn(tx);
+      if (!tx.processed.id) {
+        throw new Error('Unable to send transaction.');
       }
+
+      const parsed = queryString.parse(window.location.search);
+      const formData = new FormData();
+      formData.append('doc', parsed.doc);
+      formData.append('sig', parsed.sig);
+      formData.append('tx', tx.processed.id);
+
+      const res = await axios.post('/psignapi/logsignature.php', formData);
+      const isValidResponse = typeof res === 'object' && res !== null && 'data' in res;
+      const isValidData = typeof res.data === 'object' && res.data !== null;
+      const isError = isValidResponse && isValidData && 'error' in res.data;
+      const isResult = isValidResponse && isValidData && 'result' in res.data;
+
+      if (isError) {
+        alert('Error: ' + res.data['error']);
+        return;
+      }
+      
+      if (!isResult) {
+        alert('Unable to sign. Please try again.');
+        return;
+      }
+
+      history.push('/signaturecompleted');
     } catch (e) {
       console.error(e);
     }
