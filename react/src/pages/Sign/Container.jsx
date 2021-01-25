@@ -19,6 +19,16 @@ class SignContainer extends React.Component {
     this.loadDocInfo();
   }
 
+  isPageHidden = () => {
+    return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+  }
+
+  loadSuccessPage = () => {
+    const { history } = this.props;
+    history.push('/signaturecompleted');
+    window.onfocus = null;
+  }
+
   loadDocInfo = async () => {
     const parsed = queryString.parse(window.location.search);
     const formData = new FormData();
@@ -47,7 +57,6 @@ class SignContainer extends React.Component {
 
   signDocument = async () => {
     const { actor, permission } = this.context;
-    const { history } = this.props;
     const { docInfo } = this.state;
 
     try {
@@ -100,7 +109,12 @@ class SignContainer extends React.Component {
         return;
       }
 
-      history.push('/signaturecompleted');
+      if (this.isPageHidden()) {
+        window.onfocus = this.loadSuccessPage;
+        return;
+      }
+
+      this.loadSuccessPage();
     } catch (e) {
       console.error(e);
     }
