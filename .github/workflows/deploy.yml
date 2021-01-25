@@ -18,7 +18,9 @@ jobs:
           export_default_credentials: true
       - name: Use gcloud CLI
         run: gcloud info
-      - name: Install frontend packages and build frontend
-        run: cd react && npm install && npm run build
-      - name: Copy project files
-        run: gcloud compute scp --recurse react/build/static root@proton-sign-deployed:/var/www/html/ --zone "us-west2-a" && gcloud compute scp react/build/index.html root@proton-sign-deployed:/var/www/html/ --zone "us-west2-a" && gcloud compute scp --recurse php root@proton-sign-deployed:/var/www/html/psignapi --zone "us-west2-a"
+      - name: Install packages, build frontend, and rename directories
+        run: cd react && npm install && npm run build && mv build html && cd .. && mv php psignapi
+      - name: Copy frontend files
+        run: gcloud compute scp --recurse react/html root@proton-sign-deployed:/var/www/ --zone "us-west2-a"
+      - name: Copy backend files
+        run: gcloud compute scp --recurse psignapi root@proton-sign-deployed:/var/www/html/ --zone "us-west2-a"
