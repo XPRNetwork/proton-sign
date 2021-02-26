@@ -43,7 +43,7 @@ class Provider extends React.Component {
     const { auth, accountData, error } = await ProtonSDK.restoreSession();
     const { history } = this.props;
 
-    if(error) {
+    if (error) {
       this.setErrorState(error);
       return;
     }
@@ -76,13 +76,14 @@ class Provider extends React.Component {
   };
 
   login = async () => {
-    try {
-      const { auth, accountData } = await ProtonSDK.login();
-      if (auth && auth.actor && auth.permission) {
-        this.setLoggedInState(auth.actor, auth.permission, accountData);
-      }
-    } catch (e) {
-      console.error(e);
+    const { auth, accountData, error } = await ProtonSDK.login();
+    if (error) {
+      this.setErrorState(error);
+      return;
+    }
+
+    if (auth && auth.actor && auth.permission) {
+      this.setLoggedInState(auth.actor, auth.permission, accountData);
     }
   };
 
