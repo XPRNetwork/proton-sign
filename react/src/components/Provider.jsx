@@ -33,6 +33,12 @@ class Provider extends React.Component {
     this.checkIfLoggedIn();
   };
 
+  componentDidUpdate = (_, prevState) => {
+    if (prevState.error) {
+      this.setErrorState('');
+    }
+  }
+
   checkIfLoggedIn = async () => {
     const { auth, accountData, error } = await ProtonSDK.restoreSession();
     const { history } = this.props;
