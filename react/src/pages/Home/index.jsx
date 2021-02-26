@@ -3,7 +3,7 @@ import PageLayout from '../../components/PageLayout';
 import { AppContext } from '../../components/Provider';
 
 const Home = () => {
-  const { login } = useContext(AppContext);
+  const { login, error } = useContext(AppContext);
 
   return (
     <PageLayout
@@ -17,6 +17,7 @@ const Home = () => {
         </div>
         <div className="center grey">You will need to connect a wallet</div>
         <div className="center grey">that supports Proton.</div>
+        {error ? <h2 className="error">{error}</h2> : null}
       </div>
     </PageLayout>
     );

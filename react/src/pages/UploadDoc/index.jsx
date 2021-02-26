@@ -6,7 +6,7 @@ import { AppContext } from '../../components/Provider';
 import upload from '../../logo.svg';
 
 const UploadDoc = ({ onFileUpload }) => {
-  const { accountData } = useContext(AppContext);
+  const { accountData, error } = useContext(AppContext);
   const firstName = accountData.name ? ' ' + accountData.name.split(' ')[0] : '';
   const maxSize = 5000000;
   
@@ -38,6 +38,8 @@ const UploadDoc = ({ onFileUpload }) => {
                     <label className="upload grey">Supports: PDF files</label>
                   </li>
                 </ul>
+
+                {error ? <h2 className="error">{error}</h2> : null}
             </div>
           );
         }}
