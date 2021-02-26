@@ -14,7 +14,7 @@ const RemoveSignerButton = ({ isLastSigner, removeSigner }) =>
   ) : null;
 
 const AddSignersContainer = ({ history }) => {
-  const { actor, docInfo } = useContext(AppContext);
+  const { actor, docInfo, error } = useContext(AppContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onAddSigner = (values, setValues) => {
@@ -238,6 +238,7 @@ const AddSignersContainer = ({ history }) => {
               onClick={() => handleSubmit(values)}>
               Submit for signing
             </button>
+            {error ? <h2 className="error">{error}</h2> : null}
           </Form>
         )}
       </Formik>
