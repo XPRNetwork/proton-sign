@@ -6,10 +6,12 @@ export const AppContext = createContext({
   actor: '',
   permission: '',
   session: '',
+  error: '',
   accountData: {},
   docInfo: {},
   setLoggedInState: () => {},
   setDocInfo: () => {},
+  setErrorState: () => {},
   login: () => {},
   logout: () => {},
 });
@@ -21,6 +23,7 @@ class Provider extends React.Component {
       actor: '',
       permission: '',
       session: '',
+      error: '',
       accountData: {},
       docInfo: {},
     };
@@ -31,8 +34,13 @@ class Provider extends React.Component {
   };
 
   checkIfLoggedIn = async () => {
-    const { auth, accountData } = await ProtonSDK.restoreSession();
+    const { auth, accountData, error } = await ProtonSDK.restoreSession();
     const { history } = this.props;
+
+    if(error) {
+      this.setErrorState(error);
+      return;
+    }
 
     if (auth && auth.actor && auth.permission) {
       this.setLoggedInState(auth.actor, auth.permission, accountData);
@@ -55,6 +63,10 @@ class Provider extends React.Component {
 
   setLoggedInState = async (actor, permission, accountData) => {
     this.setState({ actor, permission, accountData });
+  };
+
+  setErrorState = (error) => {
+    this.setState({ error });
   };
 
   login = async () => {
